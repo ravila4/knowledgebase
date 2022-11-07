@@ -1,0 +1,167 @@
+<h1 id="jq">jq<a aria-hidden="true" class="anchor-heading icon-link" href="#jq"></a></h1>
+<p>JSON (JavaScript Object Notation) is a common structured data format. It is often used as a replacement for XML, to transmit data between a server and a browser. JSON transmits human-readable data as objects composed of attribute-value pairs.</p>
+<p>Example JSON (<a href="https://www.w3schools.com/Js/json_demo.txt">https://www.w3schools.com/Js/json_demo.txt</a>):</p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"name"</span><span class="token operator">:</span><span class="token string">"John"</span><span class="token punctuation">,</span>
+    <span class="token property">"age"</span><span class="token operator">:</span><span class="token number">31</span><span class="token punctuation">,</span>
+    <span class="token property">"pets"</span><span class="token operator">:</span><span class="token punctuation">[</span>
+        <span class="token punctuation">{</span> <span class="token property">"animal"</span><span class="token operator">:</span><span class="token string">"dog"</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span><span class="token string">"Fido"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> <span class="token property">"animal"</span><span class="token operator">:</span><span class="token string">"cat"</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span><span class="token string">"Felix"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> <span class="token property">"animal"</span><span class="token operator">:</span><span class="token string">"hamster"</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span><span class="token string">"Lightning"</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Here, we take a look at the <strong>jq</strong> UNIX tool for manipulating JSON data. </p>
+<p>To get started, we can pipe the json text above into <code>jq</code> using <code>curl</code>:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> jq
+</code></pre>
+<h2 id="selecting-attributes">Selecting Attributes<a aria-hidden="true" class="anchor-heading icon-link" href="#selecting-attributes"></a></h2>
+<p>Selecting a single scalar value:</p>
+<pre class="language-bash"><code class="language-bash"> <span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> jq <span class="token string">'.name'</span>
+</code></pre>
+<pre class="language-json"><code class="language-json"><span class="token string">"John"</span>
+</code></pre>
+<p>Selecting multiple values:</p>
+<pre class="language-bash"><code class="language-bash"> <span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> <span class="token punctuation">\</span>
+ jq <span class="token string">'.name, .age'</span>
+</code></pre>
+<pre class="language-json"><code class="language-json"><span class="token string">"John"</span>
+<span class="token number">31</span>
+</code></pre>
+<p>Selecting a single value from an array (index 0 returns the first element)</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> jq <span class="token string">'.pets[0]'</span>
+</code></pre>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"dog"</span><span class="token punctuation">,</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Fido"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>More complicated queries can be achieved by combining dot operators, or using a pipe "|".</p>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># Multiple dot operations</span>
+<span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> <span class="token punctuation">\</span>
+jq <span class="token string">'.pets[0].name'</span>
+
+<span class="token comment"># Same query using a pipe</span>
+<span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> <span class="token punctuation">\</span>
+jq <span class="token string">'.pets[0] | .name'</span>
+
+</code></pre>
+<pre class="language-json"><code class="language-json"><span class="token string">"Fido"</span>
+</code></pre>
+<p>Selecting elements from an array when an attribute matches a condition:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> <span class="token punctuation">\</span>
+jq <span class="token string">'.pets | map(select(.animal == "hamster"))'</span>
+</code></pre>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"hamster"</span><span class="token punctuation">,</span>
+    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Lightning"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>Select also supports boolean operators:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> <span class="token punctuation">\</span>
+jq <span class="token string">'.pets | map(select(.animal == "hamster" or .animal == "cat"))'</span>
+</code></pre>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"cat"</span><span class="token punctuation">,</span>
+    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Felix"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>
+    <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"hamster"</span><span class="token punctuation">,</span>
+    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Lightning"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<h2 id="formatting-output">Formatting Output<a aria-hidden="true" class="anchor-heading icon-link" href="#formatting-output"></a></h2>
+<p>Selected attributes can be formatted:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> <span class="token punctuation">\</span>
+jq <span class="token string">'.name + " is " + (.age | tostring)'</span>
+</code></pre>
+<pre class="language-json"><code class="language-json"><span class="token string">"John is 31"</span>
+</code></pre>
+<h2 id="editing-json">Editing JSON<a aria-hidden="true" class="anchor-heading icon-link" href="#editing-json"></a></h2>
+<p>Replace a value:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> <span class="token punctuation">\</span>
+jq <span class="token string">' .name = "Jessica" '</span>
+</code></pre>
+<pre class="language-json"><code class="language-json">i<span class="token punctuation">{</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Jessica"</span><span class="token punctuation">,</span>
+  <span class="token property">"age"</span><span class="token operator">:</span> <span class="token number">31</span><span class="token punctuation">,</span>
+  <span class="token property">"pets"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"dog"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Fido"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"cat"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Felix"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"hamster"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Lightning"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Adding a new key-value pair:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> <span class="token punctuation">\</span>
+jq <span class="token string">' .pets += [{ "animal" : "piggy", "name": "Chrorizo" }] '</span>
+</code></pre>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"John"</span><span class="token punctuation">,</span>
+  <span class="token property">"age"</span><span class="token operator">:</span> <span class="token number">31</span><span class="token punctuation">,</span>
+  <span class="token property">"pets"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"dog"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Fido"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"cat"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Felix"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"hamster"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Lightning"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"piggy"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Chrorizo"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>More extensive modifications:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> -s https://www.w3schools.com/Js/json_demo.txt <span class="token operator">|</span> <span class="token punctuation">\</span>
+jq <span class="token string">' .pets += [{ "animal" : "piggy", "name": "Chrorizo" } ] | 
+     .pets[0] += {"breed" : "Chihuahua" } |
+     .name = "Ana" |
+     .age = 28 |
+     .hobbies = "ukulele" '</span>
+</code></pre>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Ana"</span><span class="token punctuation">,</span>
+  <span class="token property">"age"</span><span class="token operator">:</span> <span class="token number">28</span><span class="token punctuation">,</span>
+  <span class="token property">"pets"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"dog"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Fido"</span><span class="token punctuation">,</span>
+      <span class="token property">"breed"</span><span class="token operator">:</span> <span class="token string">"Chihuahua"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"cat"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Felix"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"hamster"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Lightning"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"animal"</span><span class="token operator">:</span> <span class="token string">"piggy"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Chrorizo"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"hobbies"</span><span class="token operator">:</span> <span class="token string">"ukulele"</span>
+<span class="token punctuation">}</span>
+</code></pre>

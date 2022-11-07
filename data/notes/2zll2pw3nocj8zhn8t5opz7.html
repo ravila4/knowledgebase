@@ -1,0 +1,60 @@
+<h1 id="pandas">Pandas<a aria-hidden="true" class="anchor-heading icon-link" href="#pandas"></a></h1>
+<h2 id="creating-dataframes">Creating DataFrames<a aria-hidden="true" class="anchor-heading icon-link" href="#creating-dataframes"></a></h2>
+<p>Specify header while reading a tab-delimited file:</p>
+<pre class="language-python"><code class="language-python">cols <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"col1"</span><span class="token punctuation">,</span> <span class="token string">"col2"</span><span class="token punctuation">,</span> <span class="token string">"col3"</span> <span class="token punctuation">]</span>
+df <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">"data.tab"</span><span class="token punctuation">,</span> sep<span class="token operator">=</span><span class="token string">"\t"</span><span class="token punctuation">,</span> names<span class="token operator">=</span>cols<span class="token punctuation">)</span>
+</code></pre>
+<h2 id="cleaning-data">Cleaning Data<a aria-hidden="true" class="anchor-heading icon-link" href="#cleaning-data"></a></h2>
+<p>Rename several DataFrame columns:</p>
+<pre class="language-python"><code class="language-python">df <span class="token operator">=</span> df<span class="token punctuation">.</span>rename<span class="token punctuation">(</span>columns <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'col1 old name'</span><span class="token punctuation">:</span><span class="token string">'col1 new name'</span><span class="token punctuation">,</span>
+    <span class="token string">'col2 old name'</span><span class="token punctuation">:</span><span class="token string">'col2 new name'</span><span class="token punctuation">,</span>
+    <span class="token string">'col3 old name'</span><span class="token punctuation">:</span><span class="token string">'col3 new name'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Get a report of all duplicate records in a DataFrame, based on specific columns:</p>
+<pre class="language-python"><code class="language-python">dupes <span class="token operator">=</span> df<span class="token punctuation">[</span>df<span class="token punctuation">.</span>duplicated<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'col1'</span><span class="token punctuation">,</span> <span class="token string">'col2'</span><span class="token punctuation">,</span> <span class="token string">'col3'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> keep<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<p>Remove duplicates by column, keeping first entry:</p>
+<pre class="language-python"><code class="language-python">df <span class="token operator">=</span> df<span class="token punctuation">.</span>drop_duplicates<span class="token punctuation">(</span>subset<span class="token operator">=</span><span class="token string">'col'</span><span class="token punctuation">,</span> keep<span class="token operator">=</span><span class="token string">'first'</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Reset a DataFrame's index to continuous integers, without saving old index (eg. after deleting records).</p>
+<pre class="language-python"><code class="language-python">df<span class="token punctuation">.</span>reset_index<span class="token punctuation">(</span>drop<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Clean up missing values in multiple DataFrame columns:</p>
+<pre class="language-python"><code class="language-python">df <span class="token operator">=</span> df<span class="token punctuation">.</span>fillna<span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token string">'col1'</span><span class="token punctuation">:</span> <span class="token string">'missing'</span><span class="token punctuation">,</span>
+    <span class="token string">'col2'</span><span class="token punctuation">:</span> <span class="token number">999</span><span class="token punctuation">,</span>
+    <span class="token string">'col3'</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token string">'col4'</span><span class="token punctuation">:</span> <span class="token string">'missing'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Rename several DataFrame columns:</p>
+<pre class="language-python"><code class="language-python">df <span class="token operator">=</span> df<span class="token punctuation">.</span>rename<span class="token punctuation">(</span>columns <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'col1 old name'</span><span class="token punctuation">:</span><span class="token string">'col1 new name'</span><span class="token punctuation">,</span>
+    <span class="token string">'col2 old name'</span><span class="token punctuation">:</span><span class="token string">'col2 new name'</span><span class="token punctuation">,</span>
+    <span class="token string">'col3 old name'</span><span class="token punctuation">:</span><span class="token string">'col3 new name'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="exploring-data">Exploring Data<a aria-hidden="true" class="anchor-heading icon-link" href="#exploring-data"></a></h2>
+<p>Sort DataFrame on a column:</p>
+<pre class="language-python"><code class="language-python">df<span class="token punctuation">.</span>sort_values<span class="token punctuation">(</span>by<span class="token operator">=</span><span class="token string">'col1'</span><span class="token punctuation">,</span> ascending<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="indexing-and-selecting-data">Indexing and Selecting Data<a aria-hidden="true" class="anchor-heading icon-link" href="#indexing-and-selecting-data"></a></h2>
+<p>Accessing an index from a multi-index DataFrame:</p>
+<pre class="language-python"><code class="language-python">pandas<span class="token punctuation">.</span>MultiIndex<span class="token punctuation">.</span>get_level_values
+</code></pre>
+<h2 id="grouping-and-transforming-data">Grouping and Transforming Data<a aria-hidden="true" class="anchor-heading icon-link" href="#grouping-and-transforming-data"></a></h2>
+<p>Group by two columns and count total in groups:</p>
+<pre class="language-python"><code class="language-python">df<span class="token punctuation">.</span>groupby<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'col1'</span><span class="token punctuation">,</span> <span class="token string">'col2'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Group and then aggregate all columns with a function:</p>
+<pre class="language-python"><code class="language-python">df<span class="token punctuation">.</span>groupby<span class="token punctuation">(</span><span class="token string">'col'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>agg<span class="token punctuation">(</span>function<span class="token punctuation">)</span>
+</code></pre>
+<p>Group and aggregate specific columns with specific functions:</p>
+<pre class="language-python"><code class="language-python">df<span class="token punctuation">.</span>groupby<span class="token punctuation">(</span><span class="token string">'col'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>agg<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"col1"</span><span class="token punctuation">:</span> np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">,</span> <span class="token string">"col2"</span><span class="token punctuation">:</span> pd<span class="token punctuation">.</span>Series<span class="token punctuation">.</span>nunique<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Spreadsheet-style pivot with aggregation:</p>
+<pre class="language-python"><code class="language-python">table <span class="token operator">=</span> pd<span class="token punctuation">.</span>pivot_table<span class="token punctuation">(</span>
+    df<span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token string">'D'</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'A'</span><span class="token punctuation">,</span> <span class="token string">'B'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> columns<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'C'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> aggfunc<span class="token operator">=</span>np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">)</span>
+</code></pre>

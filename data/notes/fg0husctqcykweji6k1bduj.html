@@ -1,0 +1,68 @@
+<h1 id="installation">Installation<a aria-hidden="true" class="anchor-heading icon-link" href="#installation"></a></h1>
+<h2 id="installation-1">Installation<a aria-hidden="true" class="anchor-heading icon-link" href="#installation-1"></a></h2>
+<h3 id="docker-image">Docker image<a aria-hidden="true" class="anchor-heading icon-link" href="#docker-image"></a></h3>
+<p>Elasticsearch can be easily installed using <a href="/knowledgebase/notes/x9wl80kifhmlnfpu6n1xf28">Docker</a>.</p>
+<p>For ElasticSearch 8:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">docker</span> network create elastic
+<span class="token function">docker</span> pull docker.elastic.co/elasticsearch/elasticsearch:8.1.0
+<span class="token function">docker</span> run -d -p <span class="token number">9200</span>:9200 -p <span class="token number">9300</span>:9300 --name elasticsearch_8 <span class="token punctuation">\</span>
+  --net elastic -t docker.elastic.co/elasticsearch/elasticsearch:8.1.0
+</code></pre>
+<h3 id="disabling-elasticsearch-security-settings">Disabling Elasticsearch Security Settings<a aria-hidden="true" class="anchor-heading icon-link" href="#disabling-elasticsearch-security-settings"></a></h3>
+<p>We must disable some security settings to easily connect to our container locally (we leave them on in prod). The settings to disable are: <code>xpack.security.enabled</code>, <code>xpack.security.http.ssl</code>, and <code>xpack.security.transport.ssl</code>.</p>
+<p>I found the easiest method is to create a <a href="/knowledgebase/notes/x9wl80kifhmlnfpu6n1xf28#docker-compose1">docker-compose</a> file and bind-mount a config file:</p>
+<pre class="language-yml"><code class="language-yml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3'</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">elasticsearch</span><span class="token punctuation">:</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> elasticsearch_8.1
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> docker.elastic.co/elasticsearch/elasticsearch<span class="token punctuation">:</span>8.1.0
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 9200<span class="token punctuation">:</span><span class="token number">9200</span>
+      <span class="token punctuation">-</span> 9300<span class="token punctuation">:</span><span class="token number">9300</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./elasticsearch.yml<span class="token punctuation">:</span>/usr/share/elasticsearch/config/elasticsearch.yml
+</code></pre>
+<p><code>elasticsearch.yml</code> has the following settings:</p>
+<pre class="language-yml"><code class="language-yml"><span class="token key atrule">cluster.name</span><span class="token punctuation">:</span> <span class="token string">"docker-cluster"</span>
+<span class="token key atrule">node.name</span><span class="token punctuation">:</span> node1
+<span class="token key atrule">network.host</span><span class="token punctuation">:</span> 0.0.0.0
+<span class="token key atrule">xpack.security.enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+<span class="token key atrule">xpack.security.enrollment.enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">xpack.security.http.ssl</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+<span class="token key atrule">xpack.security.transport.ssl</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+<span class="token key atrule">cluster.initial_master_nodes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> node1
+
+</code></pre>
+<h3 id="virtual-memory">Virtual Memory<a aria-hidden="true" class="anchor-heading icon-link" href="#virtual-memory"></a></h3>
+<p>I ran into a virtual memory problem:</p>
+<blockquote>
+<p>Elasticsearch: Max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</p>
+</blockquote>
+<p>Solution:
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html</a></p>
+<pre class="language-bash"><code class="language-bash">sysctl -w vm.max_map_count<span class="token operator">=</span><span class="token number">262144</span>
+</code></pre>
+<p>To modify this setting permanently, edit <code>/etc/sysctl.conf</code> and set <code>vm.max_map_count</code> to  262144.</p>
+<h3 id="connect-to-es-using-ca-certs">Connect to ES using CA certs<a aria-hidden="true" class="anchor-heading icon-link" href="#connect-to-es-using-ca-certs"></a></h3>
+<p>Install Docker image, but don't disable security settings.</p>
+<p>Copy the CA certs to the host machine:</p>
+<pre><code>cp elasticsearch_8:/usr/share/elasticsearch/config/certs/http_ca.crt .
+
+</code></pre>
+<p>You can store the cert file in <code>/etc/ssl/certs</code> for system-wide access.</p>
+<p>Connection string with simple authentication:</p>
+<pre><code>curl --cacert http_ca.crt -u elastic:&#x3C;password> https://localhost:9200
+</code></pre>
+<p>Create an API key:</p>
+<pre><code>curl -X POST --cacert http_ca.crt -u elastic:&#x3C;password> \
+  https://localhost:9200/_security/api_key \
+  -H 'Content-Type: application/json' -d'{"name": "my_api_key"}'
+</code></pre>
+<p>The API key is the 'encoded' value in the JSON response.</p>
+<p>To connect with an API key:</p>
+<pre><code>curl --cacert http_ca.crt -H \
+  "Authorization: ApiKey &#x3C;encoded_api_key>" https://localhost:9200
+</code></pre>

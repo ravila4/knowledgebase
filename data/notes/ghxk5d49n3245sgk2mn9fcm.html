@@ -1,0 +1,46 @@
+<h1 id="utils">Utils<a aria-hidden="true" class="anchor-heading icon-link" href="#utils"></a></h1>
+<h2 id="grep">grep<a aria-hidden="true" class="anchor-heading icon-link" href="#grep"></a></h2>
+<h3 id="line-context">Line context<a aria-hidden="true" class="anchor-heading icon-link" href="#line-context"></a></h3>
+<p>-A NUM
+: Print n lines of trailing context after each match.</p>
+<p>-B NUM
+: Print n lines of leading context before each match.</p>
+<h3 id="inline-context">Inline context<a aria-hidden="true" class="anchor-heading icon-link" href="#inline-context"></a></h3>
+<p>Limit the context to N characters before and after the match:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">grep</span> -o -E <span class="token string">".{0,10}wantedText.{0,10}"</span> input_file
+</code></pre>
+<h2 id="curl">curl<a aria-hidden="true" class="anchor-heading icon-link" href="#curl"></a></h2>
+<p>Pronounced "See URL". Curl is useful for sending HTTP/HTTPS requests.</p>
+<p>Common flags:</p>
+<p>-X
+: method. e.g. GET, POST, PUT, DELETE, etc.</p>
+<p>-H:
+headers</p>
+<p>-d
+document to send in request body</p>
+<h2 id="piping-utils">Piping utils<a aria-hidden="true" class="anchor-heading icon-link" href="#piping-utils"></a></h2>
+<h3 id="tee">Tee<a aria-hidden="true" class="anchor-heading icon-link" href="#tee"></a></h3>
+<p>Named after a plumbing "T" junction, tee allows us to pipe the output of a command to be redirected to two different commands, or to an output file and the screen.</p>
+<p>Examples:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token comment"># 1. redirect output to screen (stdout) and a file</span>
+<span class="token function">ls</span> -la <span class="token operator">|</span> <span class="token function">tee</span> output.txt
+
+<span class="token comment"># 2. redirect output to a file and another command</span>
+<span class="token function">ls</span> -la <span class="token operator">|</span>  <span class="token function">tee</span> output1.txt <span class="token operator">|</span> <span class="token function">head</span> 
+
+<span class="token comment"># 3. redirect output to two different files</span>
+<span class="token function">ls</span> -la <span class="token operator">|</span>  <span class="token function">tee</span> output1.txt <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'{print $1}'</span> <span class="token operator">></span> output2.txt
+
+<span class="token comment"># It can be useful for creating backup files</span>
+<span class="token function">cat</span> myfile.txt <span class="token operator">|</span> <span class="token function">tee</span> myfile.bak <span class="token operator">|</span> sed<span class="token punctuation">..</span>.
+</code></pre>
+<h3 id="sponge">Sponge<a aria-hidden="true" class="anchor-heading icon-link" href="#sponge"></a></h3>
+<p>Part of the <code>moreutils</code> package.</p>
+<p>Sponge delays a file's modification, by creating a temporary buffer that allows using the same file as both input and output of a pipe.</p>
+<p>For example:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">cat</span> myfile.txt <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'{print $1}'</span><span class="token operator">></span> myfile.txt
+</code></pre>
+<p>does not work, because "myfile.txt" gets overwritten before awk is finished processing it. The normal way around it is to write the output to a temporary file, then replace the original file with the temporary.</p>
+<p>On the other hand, we could use sponge:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">cat</span> myfile.txt <span class="token operator">|</span> <span class="token function">awk</span> <span class="token variable"><span class="token variable">`</span><span class="token punctuation">{</span>print $1<span class="token punctuation">}</span><span class="token variable">`</span></span> <span class="token operator">|</span> sponge <span class="token operator">></span> myfile.txt
+</code></pre>

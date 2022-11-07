@@ -1,0 +1,97 @@
+<h1 id="sqlite">SQLite<a aria-hidden="true" class="anchor-heading icon-link" href="#sqlite"></a></h1>
+<h2 id="about-sqlite">About SQLite<a aria-hidden="true" class="anchor-heading icon-link" href="#about-sqlite"></a></h2>
+<p>Most SQL databases work with a client/server model. In contrast, SQLite databases operate from single, cross-platform portable files. They can be stored on various storage devices and can be transferred across different computers.</p>
+<h2 id="basic-commands">Basic Commands<a aria-hidden="true" class="anchor-heading icon-link" href="#basic-commands"></a></h2>
+<p>Creating a database from scratch and reading a pre-existing database file works the same way:</p>
+<pre><code>sqlite3 mydatabse.db
+</code></pre>
+<p><strong>Meta Commands</strong> in SQLite always start with a dot (<code>.</code>), and don't require a closing semicolon (<code>;</code>).</p>
+<div class="table-responsive">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="left">Action</th><th align="left">Meta Command</th></tr></thead><tbody><tr><td align="left">Help</td><td align="left"><code>.help</code></td></tr><tr><td align="left">Display tables</td><td align="left"><code>.tables</code></td></tr><tr><td align="left">Display table schema</td><td align="left"><code>.schema &#x3C;table></code></td></tr><tr><td align="left">Quit</td><td align="left"><code>.quit</code></td></tr><tr><td align="left">Set mode for output table</td><td align="left"><code>.mode</code></td></tr><tr><td align="left">Import data to a table</td><td align="left"><code>.import &#x3C;file> &#x3C;table></code></td></tr></tbody></table></div>
+<h3 id="select">SELECT<a aria-hidden="true" class="anchor-heading icon-link" href="#select"></a></h3>
+<pre class="language-sql"><code class="language-sql"><span class="token comment">-- Select everything</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> my_table<span class="token punctuation">;</span>
+
+<span class="token comment">-- Select columns</span>
+<span class="token keyword">SELECT</span> column_a<span class="token punctuation">,</span> column_b<span class="token punctuation">,</span> column_d <span class="token keyword">FROM</span> my_table<span class="token punctuation">;</span>
+
+<span class="token comment">-- Select rows</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> my_table <span class="token keyword">WHERE</span> column_a <span class="token operator">=</span> x<span class="token punctuation">;</span>
+
+<span class="token comment">-- Select top 5 rows</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> my_table <span class="token keyword">LIMIT</span> <span class="token number">5</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="delete">DELETE<a aria-hidden="true" class="anchor-heading icon-link" href="#delete"></a></h3>
+<p>Delete data from a table:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> my_table <span class="token keyword">WHERE</span> column_a <span class="token operator">=</span> x<span class="token punctuation">;</span>
+</code></pre>
+<h2 id="creating-tables">Creating Tables<a aria-hidden="true" class="anchor-heading icon-link" href="#creating-tables"></a></h2>
+<p>SQLite uses <strong>Manifest Typing</strong>.
+Manifest Typing releases many restrictions on the type of value that can be entered for a particular field. This allows you to enter any value of any datatype into a column, irrespective of the declared type of the column (except for INTEGER PRIMARY KEY).</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> comments <span class="token punctuation">(</span> 
+	post_id <span class="token keyword">INTEGER</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> AUTOINCREMENT<span class="token punctuation">,</span> 
+	name <span class="token keyword">TEXT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> 
+	email <span class="token keyword">TEXT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> 
+	website_url <span class="token keyword">TEXT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> 
+	<span class="token keyword">comment</span> <span class="token keyword">TEXT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>You can also create a table from a csv file. If the table that you are importing into already exists, then the first row of the csv is interpreted as data. If it does not exist, it is created, and the first row of the csv is interpreted as a header.</p>
+<pre class="language-sql"><code class="language-sql"><span class="token comment">-- Set import mode to csv</span>
+<span class="token punctuation">.</span><span class="token keyword">mode</span> csv
+<span class="token punctuation">.</span><span class="token keyword">import</span> my_file<span class="token punctuation">.</span>csv my_table
+</code></pre>
+<h2 id="datatypes">Datatypes<a aria-hidden="true" class="anchor-heading icon-link" href="#datatypes"></a></h2>
+<p>There are five datatypes in SQLite3:</p>
+<ul>
+<li>NULL</li>
+<li>INTEGER</li>
+<li>REAL</li>
+<li>TEXT</li>
+<li>BLOB</li>
+</ul>
+<p>SQLite3 does not have Boolean or Date and Time datatypes. Booleans are commonly stored as integers (1 or 0) and Date/time is stored as either text (ISO8601 strings), real numbers (Julian day numbers), or integers (UNIX time), using the built-in  date and time functions.</p>
+<h2 id="deleting-tables">Deleting Tables<a aria-hidden="true" class="anchor-heading icon-link" href="#deleting-tables"></a></h2>
+<p>Delete a table if it exists:</p>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token keyword">EXISTS</span> my_table
+</code></pre>
+<h2 id="interfacing-with-python">Interfacing with Python<a aria-hidden="true" class="anchor-heading icon-link" href="#interfacing-with-python"></a></h2>
+<p>We can use the sqlite3 Python module to connect to a database, and read a table into a Pandas dataframe. </p>
+<pre class="language-python"><code class="language-python"><span class="token comment"># Connect to SQLite database</span>
+conn <span class="token operator">=</span> sqlite3<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token string">"my_database.db"</span><span class="token punctuation">)</span>
+c <span class="token operator">=</span> conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Read table into Pandas</span>
+df <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_sql<span class="token punctuation">(</span><span class="token string">"select * from my_table"</span><span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+</code></pre>

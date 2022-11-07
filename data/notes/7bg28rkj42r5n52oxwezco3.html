@@ -1,0 +1,105 @@
+<h1 id="git">Git<a aria-hidden="true" class="anchor-heading icon-link" href="#git"></a></h1>
+<h2 id="managing-remotes">Managing Remotes<a aria-hidden="true" class="anchor-heading icon-link" href="#managing-remotes"></a></h2>
+<p>Add a named remote (you can have multiple remotes):</p>
+<pre class="language-git"><code class="language-git">git remote add github https://github.com/user/repo.git
+git remote add gitlab https://gitlab.com/user/repo.git
+git push github
+git push gitlab
+</code></pre>
+<p>Listing remotes:</p>
+<pre class="language-git"><code class="language-git">git remote -v
+</code></pre>
+<p>Overloading origin with another remote:</p>
+<pre class="language-git"><code class="language-git">git remote set-url ––add origin https://github.com/user/repo.git
+</code></pre>
+<p>Deleting a remote:</p>
+<pre class="language-git"><code class="language-git">git remote remove origin
+</code></pre>
+<p>Synchronizing a local fork with remote:</p>
+<pre class="language-git"><code class="language-git">git remote add upstream https://github.com/OriginalRepo/OriginalProject.git
+git merge upstream/master
+git push origin master
+</code></pre>
+<h2 id="submodules">Submodules<a aria-hidden="true" class="anchor-heading icon-link" href="#submodules"></a></h2>
+<p>Creating submodules in an existing repo:</p>
+<pre class="language-git"><code class="language-git">git submodule add https://github.com/repo.git
+</code></pre>
+<p>Cloning a repository with submodules:</p>
+<pre class="language-git"><code class="language-git">git clone https://github.com/repo.git
+git submodule init
+git sumbodule update
+</code></pre>
+<h2 id="staging-and-commits">Staging and Commits<a aria-hidden="true" class="anchor-heading icon-link" href="#staging-and-commits"></a></h2>
+<p>Remove a file or folder from the staging area:</p>
+<pre class="language-git"><code class="language-git">git reset HEAD -- &#x3C;file or folder>
+</code></pre>
+<h2 id="branching">Branching<a aria-hidden="true" class="anchor-heading icon-link" href="#branching"></a></h2>
+<p>Deleting a local branch:</p>
+<pre class="language-git"><code class="language-git">git branch -d branch_name
+</code></pre>
+<p>Deleting a remote branch:</p>
+<pre class="language-git"><code class="language-git">push --delete remote_name branch
+</code></pre>
+<p>Fetch all branches from a remote:</p>
+<pre class="language-git"><code class="language-git">git fetch --all
+</code></pre>
+<p>Checkout specific files from another branch:</p>
+<pre class="language-git"><code class="language-git">git checkout branch_name file file2
+</code></pre>
+<p>Update a single file from upstream:</p>
+<pre class="language-git"><code class="language-git">git checkout origin/master --  file
+</code></pre>
+<p>Merge a specific commit to current branch:</p>
+<pre class="language-git"><code class="language-git">git cherry-pick 63344f2
+</code></pre>
+<p>Hide branch changes:</p>
+<pre class="language-git"><code class="language-git">git stash
+</code></pre>
+<p>Restore branch changes:</p>
+<pre class="language-git"><code class="language-git">git stash apply
+</code></pre>
+<h2 id="workflows">Workflows<a aria-hidden="true" class="anchor-heading icon-link" href="#workflows"></a></h2>
+<h3 id="fetch-a-pr-for-local-testing">Fetch a PR for local testing<a aria-hidden="true" class="anchor-heading icon-link" href="#fetch-a-pr-for-local-testing"></a></h3>
+<p>Checkout PR into a new branch.</p>
+<pre class="language-git"><code class="language-git">git fetch upstream pull/{PR-NUMBER}/head:test-branch-name
+</code></pre>
+<p>Merge PR into local master branch, and test.</p>
+<pre class="language-git"><code class="language-git">git checkout master
+git merge test-branch-name
+</code></pre>
+<p>If code was bad, revert to previous commit.</p>
+<pre class="language-git"><code class="language-git">git reset --hard HEAD@{1}
+</code></pre>
+<h3 id="move-a-commit-to-another-repo">Move a commit to another repo<a aria-hidden="true" class="anchor-heading icon-link" href="#move-a-commit-to-another-repo"></a></h3>
+<pre class="language-git"><code class="language-git">git config pull.rebase true
+git show --pretty=email &#x3C;commit> > patch
+git am --committer-date-is-author-date &#x3C; patch
+</code></pre>
+<h3 id="finding-things">Finding things<a aria-hidden="true" class="anchor-heading icon-link" href="#finding-things"></a></h3>
+<p>Find commits that contain a specific string:</p>
+<pre class="language-git"><code class="language-git">git log -S <span class="token string">'your_search_string'</span> --oneline --name-status
+</code></pre>
+<p>Display the contents of a commit:</p>
+<pre class="language-git"><code class="language-git">git show &#x3C;commit>
+</code></pre>
+<h2 id="undoing-stuff-and-fixing-mistakes">Undoing Stuff and Fixing Mistakes<a aria-hidden="true" class="anchor-heading icon-link" href="#undoing-stuff-and-fixing-mistakes"></a></h2>
+<p>Undo changes to a file:</p>
+<pre class="language-git"><code class="language-git">git checkout -- &#x3C;file>
+</code></pre>
+<p>Undo a merge, keeping local changes</p>
+<pre class="language-git"><code class="language-git">git reset --merge ORIG_HEAD
+</code></pre>
+<p>Undo the last local commit</p>
+<pre class="language-git"><code class="language-git">git reset --soft HEAD~1
+</code></pre>
+<p>Undo a commit pushed to GitHub deleting all history:</p>
+<pre class="language-git"><code class="language-git">git reset --hard 93827927ed6e245be
+git reset HEAD~1
+git stash
+git add .
+git commit -m <span class="token string">"your new commit message here"</span>
+git push --force
+</code></pre>
+<p>To pull the new history to a repository that has diverged:</p>
+<pre class="language-git"><code class="language-git">git pull --rebase
+</code></pre>

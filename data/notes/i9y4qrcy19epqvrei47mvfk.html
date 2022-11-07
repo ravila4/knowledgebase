@@ -1,0 +1,131 @@
+<h1 id="requests">Requests<a aria-hidden="true" class="anchor-heading icon-link" href="#requests"></a></h1>
+<h2 id="basic-requests">Basic Requests<a aria-hidden="true" class="anchor-heading icon-link" href="#basic-requests"></a></h2>
+<ul>
+<li><strong>GET</strong>: <code>response = requests.get('https://api.github.com')</code></li>
+<li><strong>POST</strong>: <code>response = requests.post('https://api.github.com')</code></li>
+</ul>
+<h2 id="advanced-requests">Advanced requests<a aria-hidden="true" class="anchor-heading icon-link" href="#advanced-requests"></a></h2>
+<h3 id="parameters">Parameters<a aria-hidden="true" class="anchor-heading icon-link" href="#parameters"></a></h3>
+<p>Passing query string parameters to a GET request using <code>params</code>:</p>
+<pre class="language-python"><code class="language-python">requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>
+    <span class="token string">'https://api.github.com/search/repositories'</span><span class="token punctuation">,</span>
+    params<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'q'</span><span class="token punctuation">,</span> <span class="token string">'requests+language:python'</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>Or in a single line:</p>
+<pre class="language-python"><code class="language-python">response<span class="token operator">=</span>requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>
+    <span class="token string">'https://api.github.com/search/repositories?q=requests+language:python'</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="body">Body<a aria-hidden="true" class="anchor-heading icon-link" href="#body"></a></h3>
+<p>Similarly, the <code>data</code> argument takes a request body:</p>
+<pre class="language-python"><code class="language-python">payload <span class="token operator">=</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token string">"name"</span> <span class="token punctuation">:</span> <span class="token string">"Test private geneset"</span><span class="token punctuation">,</span>
+    <span class="token string">"genes"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"1001"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"is_public"</span><span class="token punctuation">:</span> <span class="token string">"true"</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+url <span class="token operator">=</span> <span class="token string">"https://mygeneset.info/v1/user_geneset"</span>
+
+response <span class="token operator">=</span> requests<span class="token punctuation">.</span>request<span class="token punctuation">(</span><span class="token string">"POST"</span><span class="token punctuation">,</span> url<span class="token punctuation">,</span> data<span class="token operator">=</span>payload<span class="token punctuation">)</span>
+</code></pre>
+<h3 id="headers">Headers<a aria-hidden="true" class="anchor-heading icon-link" href="#headers"></a></h3>
+<p>Headers can be passed to the <code>headers</code> argument.</p>
+<h4 id="accept">Accept<a aria-hidden="true" class="anchor-heading icon-link" href="#accept"></a></h4>
+<p> The Accept header tells the server what content types your application can handle. It has the format: <code>Accept: &#x3C;MIME_type>/&#x3C;MIME_subtype></code></p>
+<p>Common Accept values:</p>
+<ul>
+<li><code>headers={'Accept': '*/*'}</code></li>
+<li><code>headers={'Accept': 'text/html'}</code></li>
+<li><code>headers={'Accept': 'application/json'}</code></li>
+<li><code>headers={'Accept': 'image/jpeg'}</code></li>
+</ul>
+<h4 id="cookies">Cookies<a aria-hidden="true" class="anchor-heading icon-link" href="#cookies"></a></h4>
+<pre class="language-python"><code class="language-python">headers<span class="token operator">=</span><span class="token punctuation">{</span>Cookie<span class="token punctuation">:</span> <span class="token string">'user="2|1:0|10:1651076373|4:user|284:eyJ1c2VybmFtZSI6IC..."'</span><span class="token punctuation">}</span>
+</code></pre>
+<h3 id="other-common-request-header-fields">Other common request header fields<a aria-hidden="true" class="anchor-heading icon-link" href="#other-common-request-header-fields"></a></h3>
+<ul>
+<li>Authorization: <code>Authorization: BASIC &#x3C;credentials></code></li>
+<li>User-Agent: <code>User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:50.0) </code></li>
+<li>Accept-Encoding</li>
+</ul>
+<h2 id="responses">Responses<a aria-hidden="true" class="anchor-heading icon-link" href="#responses"></a></h2>
+<h3 id="status">Status<a aria-hidden="true" class="anchor-heading icon-link" href="#status"></a></h3>
+<ul>
+<li><code>response.status_code</code></li>
+</ul>
+<h3 id="content">Content<a aria-hidden="true" class="anchor-heading icon-link" href="#content"></a></h3>
+<ul>
+<li><code>response.content</code>: raw bytes payload</li>
+<li><code>response.text</code>: string</li>
+<li><code>response.json()</code>: JSON object</li>
+</ul>
+<h2 id="headers-1">Headers<a aria-hidden="true" class="anchor-heading icon-link" href="#headers-1"></a></h2>
+<ul>
+<li><code>response.headers</code></li>
+</ul>
+<h2 id="ssl-validation">SSL validation<a aria-hidden="true" class="anchor-heading icon-link" href="#ssl-validation"></a></h2>
+<pre class="language-python"><code class="language-python">requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://api.github.com'</span><span class="token punctuation">,</span> verify<span class="token operator">=</span><span class="token boolean">False</span>
+</code></pre>
+<h2 id="setting-custom-timeouts">Setting Custom Timeouts<a aria-hidden="true" class="anchor-heading icon-link" href="#setting-custom-timeouts"></a></h2>
+<pre class="language-python"><code class="language-python">requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://api.github.com'</span><span class="token punctuation">,</span> timeout<span class="token operator">=</span><span class="token number">5.0</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Set request/connect timeouts:</p>
+<pre><code>requests.get('https://api.github.com', timeout=(2, 5))
+</code></pre>
+<h3 id="checking-for-a-successful-response">Checking for a successful response:<a aria-hidden="true" class="anchor-heading icon-link" href="#checking-for-a-successful-response"></a></h3>
+<pre class="language-python"><code class="language-python"><span class="token keyword">if</span> response<span class="token punctuation">.</span>status_code <span class="token operator">!=</span> <span class="token number">200</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Error!'</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Or even better:</p>
+<p><code>response.raise_for_status()</code></p>
+<h2 id="hooks">Hooks<a aria-hidden="true" class="anchor-heading icon-link" href="#hooks"></a></h2>
+<pre class="language-python"><code class="language-python">http <span class="token operator">=</span> requests<span class="token punctuation">.</span>Session<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+assert_status_hook <span class="token operator">=</span> <span class="token punctuation">(</span>
+    <span class="token keyword">lambda</span> response<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">:</span> response<span class="token punctuation">.</span>raise_for_status<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+http<span class="token punctuation">.</span>hooks<span class="token punctuation">[</span><span class="token string">"response"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>assert_status_hook<span class="token punctuation">]</span>
+
+http<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"https://api.github.com/user/repos?page=1"</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="retries">Retries<a aria-hidden="true" class="anchor-heading icon-link" href="#retries"></a></h2>
+<p>We might be tempted to do:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> time
+<span class="token keyword">import</span> requests
+
+
+<span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+    <span class="token keyword">except</span> Exception<span class="token punctuation">:</span>
+        <span class="token comment"># sleep for a bit</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token comment"># try again</span>
+        <span class="token keyword">return</span> get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+</code></pre>
+<p>This can fail for many reasons, including incorrect URL, 500 errors, etc.</p>
+<p>A better soluton:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">from</span> requests<span class="token punctuation">.</span>adapters <span class="token keyword">import</span> HTTPAdapter
+<span class="token keyword">from</span> requests<span class="token punctuation">.</span>packages<span class="token punctuation">.</span>urllib3<span class="token punctuation">.</span>util<span class="token punctuation">.</span>retry <span class="token keyword">import</span> Retry
+
+
+<span class="token keyword">def</span> <span class="token function">requests_retry_session</span><span class="token punctuation">(</span>
+    retries<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span>
+    backoff_factor<span class="token operator">=</span><span class="token number">0.3</span><span class="token punctuation">,</span>
+    status_forcelist<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">,</span> <span class="token number">502</span><span class="token punctuation">,</span> <span class="token number">504</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    session<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    session <span class="token operator">=</span> session <span class="token keyword">or</span> requests<span class="token punctuation">.</span>Session<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    retry <span class="token operator">=</span> Retry<span class="token punctuation">(</span>
+        total<span class="token operator">=</span>retries<span class="token punctuation">,</span>
+        read<span class="token operator">=</span>retries<span class="token punctuation">,</span>
+        connect<span class="token operator">=</span>retries<span class="token punctuation">,</span>
+        backoff_factor<span class="token operator">=</span>backoff_factor<span class="token punctuation">,</span>
+        status_forcelist<span class="token operator">=</span>status_forcelist<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    adapter <span class="token operator">=</span> HTTPAdapter<span class="token punctuation">(</span>max_retries<span class="token operator">=</span>retry<span class="token punctuation">)</span>
+    session<span class="token punctuation">.</span>mount<span class="token punctuation">(</span><span class="token string">'http://'</span><span class="token punctuation">,</span> adapter<span class="token punctuation">)</span>
+    session<span class="token punctuation">.</span>mount<span class="token punctuation">(</span><span class="token string">'https://'</span><span class="token punctuation">,</span> adapter<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> session
+</code></pre>

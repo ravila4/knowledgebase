@@ -1,0 +1,68 @@
+<h1 id="tricks">Tricks<a aria-hidden="true" class="anchor-heading icon-link" href="#tricks"></a></h1>
+<h2 id="networking">Networking<a aria-hidden="true" class="anchor-heading icon-link" href="#networking"></a></h2>
+<p>Find out which process is listening on a given port:</p>
+<pre><code>[sudo] lsof -i :6600
+</code></pre>
+<h2 id="file-transfers">File Transfers<a aria-hidden="true" class="anchor-heading icon-link" href="#file-transfers"></a></h2>
+<p>Transfer files from a remote host to a local machine with progress and compression:</p>
+<pre><code>rsync -azP remote-user@remote-host:~/Remote/Path ~/Destination
+</code></pre>
+<h2 id="system">System<a aria-hidden="true" class="anchor-heading icon-link" href="#system"></a></h2>
+<p>Find number of processors:</p>
+<pre><code>nproc
+</code></pre>
+<p>Find your private IP address:</p>
+<pre><code>python -c "import socket; print(socket.gethostbyname(socket.gethostname()))"
+</code></pre>
+<p>Find your public IP address:</p>
+<pre><code>curl ifconfig.io
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting<a aria-hidden="true" class="anchor-heading icon-link" href="#troubleshooting"></a></h2>
+<p>Burn an ISO image to a usb drive:</p>
+<pre><code>dd bs=4M if=path/to/image.iso of=/dev/sdx status=progress oflag=sync
+</code></pre>
+<h2 id="file-operations">File operations<a aria-hidden="true" class="anchor-heading icon-link" href="#file-operations"></a></h2>
+<p>Change permissions by type [directory/file] using <code>find</code>:</p>
+<pre><code>sudo find [directory] -type [d/f] -exec chmod [privilege] {} \;
+</code></pre>
+<h2 id="searching--replacing">Searching / Replacing<a aria-hidden="true" class="anchor-heading icon-link" href="#searching--replacing"></a></h2>
+<p>Recursive find-and-replace all instances of a string in a directory:</p>
+<pre><code>find &#x3C;mydir> -type f -exec sed -i 's/&#x3C;string1>/&#x3C;string2>/g' {} +
+</code></pre>
+<p>Inline search and replace:</p>
+<pre><code>echo "${WORD/SEARCH/REPLACE}"
+</code></pre>
+<p>Grep PDF files:</p>
+<pre><code>find /path -iname '*.pdf' -exec pdfgrep pattern {} +
+</code></pre>
+<h2 id="images">Images<a aria-hidden="true" class="anchor-heading icon-link" href="#images"></a></h2>
+<p>Convert format for multiple images:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">file</span> <span class="token keyword">in</span> *.jpg<span class="token punctuation">;</span>
+  <span class="token keyword">do</span> convert <span class="token variable">$file</span> <span class="token variable">${file<span class="token operator">/</span>.jpg<span class="token operator">/</span>.png}</span><span class="token punctuation">;</span>
+<span class="token keyword">done</span>
+</code></pre>
+<p>Resize multiple images:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">file</span> <span class="token keyword">in</span> *.jpg<span class="token punctuation">;</span>
+  <span class="token keyword">do</span> convert -quality  <span class="token number">90</span> -resize 1000x1000 <span class="token variable">$file</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
+<span class="token keyword">done</span>
+</code></pre>
+<p>Crop multiple images ("gravity" = north, south, east, west, center):</p>
+<pre class="language-bash"><code class="language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">file</span> <span class="token keyword">in</span> *jpg<span class="token punctuation">;</span>
+  <span class="token keyword">do</span> convert -extent 1000x1000 -gravity center <span class="token variable">$file</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
+<span class="token keyword">done</span>
+</code></pre>
+<p>OCR an image:</p>
+<pre><code>tesseract my-image output.txt
+</code></pre>
+<h2 id="video">Video<a aria-hidden="true" class="anchor-heading icon-link" href="#video"></a></h2>
+<p>Create a video from images in a folder. (Image file names must be indexed in order.)</p>
+<pre><code>ffmpeg -framerate 30 -pattern_type glob -i '*.jpg' -c:v libx264 \
+  -r 30 -pix_fmt yuv420p out.mp4
+</code></pre>
+<h2 id="more-pdf-stuff">More PDF Stuff<a aria-hidden="true" class="anchor-heading icon-link" href="#more-pdf-stuff"></a></h2>
+<p>Convert markdown to pdf:</p>
+<pre><code>pandoc -f my-notes.md -o my-notes.pdf
+</code></pre>
+<p>OCR:</p>
+<pre><code>ocrmypdf original-document.pdf new-document.pdf
+</code></pre>

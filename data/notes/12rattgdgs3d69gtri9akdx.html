@@ -1,0 +1,22 @@
+<h1 id="ssh">SSH<a aria-hidden="true" class="anchor-heading icon-link" href="#ssh"></a></h1>
+<p>SSH (Secure Shell) provides a secure way to access another computer.</p>
+<h2 id="sshconfig">.ssh/config<a aria-hidden="true" class="anchor-heading icon-link" href="#sshconfig"></a></h2>
+<p>The SSH configuration file <code>~/.ssh/config</code> is one of the most useful files for automating ssh connections. It allows you to create aliases, and saves you from having to remember and specify all the credentials and options every time you establish a connection.</p>
+<h3 id="basic-connection-template">Basic connection template<a aria-hidden="true" class="anchor-heading icon-link" href="#basic-connection-template"></a></h3>
+<pre><code>Host connection_name
+    HostName ssh.example.com
+    User username
+    Port 22
+</code></pre>
+<h3 id="other-useful-settings">Other useful settings<a aria-hidden="true" class="anchor-heading icon-link" href="#other-useful-settings"></a></h3>
+<p>Public key authentication:</p>
+<p><code>IdentityFile /home/user/.ssh/id_rsa</code></p>
+<p>Port forwarding:</p>
+<p><code>DynamicForward port_number</code></p>
+<p>Multiple SSH hops:</p>
+<pre><code>ProxyCommand ssh scripps -W %h:%p
+LogLevel=error
+RequestTTY force
+</code></pre>
+<p>Execute a command on login (e.g. change user):</p>
+<p><code>RemoteCommand sudo su username</code></p>

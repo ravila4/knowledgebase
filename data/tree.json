@@ -1,0 +1,628 @@
+{
+  "roots": [
+    {
+      "key": "qz307gmzctlyybze4spt8ug",
+      "title": "R",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": []
+    },
+    {
+      "key": "jgwsrsqomd2kd3cj73wg804",
+      "title": "AWS",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": []
+    },
+    {
+      "key": "e0dxh083vpjhkdjw955e2xv",
+      "title": "Bioinformatics",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": [
+        {
+          "key": "e6ajkdl8wimjtmi5edjdkkt",
+          "title": "Blast",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": [
+            {
+              "key": "ivdslc03elvxsw34fwjbvhv",
+              "title": "Evalues",
+              "icon": null,
+              "hasTitleNumberOutlined": false,
+              "vaultName": "vault",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "9y8uvew2sqdfv2ftqyolhfg",
+      "title": "BioThings",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": [
+        {
+          "key": "7pat6pg98v7e67w91gp8ous",
+          "title": "BioThings SDK",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": [
+            {
+              "key": "3g22rduq2yiwiloagst4rx9",
+              "title": "Using Biothings SDK with ES8",
+              "icon": null,
+              "hasTitleNumberOutlined": false,
+              "vaultName": "vault",
+              "children": []
+            },
+            {
+              "key": "g7zaciaaudmvihlllz15xt0",
+              "title": "Hub Shell",
+              "icon": null,
+              "hasTitleNumberOutlined": false,
+              "vaultName": "vault",
+              "children": []
+            }
+          ]
+        },
+        {
+          "key": "jobh5yj2kuo1fdnn32stjar",
+          "title": "Translator",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": [
+            {
+              "key": "a6uj29b5sg2arnnjvwz9w6y",
+              "title": "Biolink Model",
+              "icon": null,
+              "hasTitleNumberOutlined": false,
+              "vaultName": "vault",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ejexjywmltcdkgxa8y9n2la",
+      "title": "Daily",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": [
+        {
+          "key": "pgnd33rp2agino603t68p3m",
+          "title": "Journal",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": [
+            {
+              "key": "fquzadujp5on9845ixlmxnk",
+              "title": "2022",
+              "icon": null,
+              "hasTitleNumberOutlined": false,
+              "vaultName": "vault",
+              "children": [
+                {
+                  "key": "os3bhd1sdlntdkb7ntg8wna",
+                  "title": "03",
+                  "icon": null,
+                  "hasTitleNumberOutlined": false,
+                  "vaultName": "vault",
+                  "children": [
+                    {
+                      "key": "ht7dz6z9eaetm447pm9los7",
+                      "title": "2022-03-24",
+                      "icon": null,
+                      "hasTitleNumberOutlined": false,
+                      "vaultName": "vault",
+                      "children": []
+                    },
+                    {
+                      "key": "sisy0cg7b6ymseejpwfl9qs",
+                      "title": "2022-03-28",
+                      "icon": null,
+                      "hasTitleNumberOutlined": false,
+                      "vaultName": "vault",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "key": "90nvjxk3p9ewja0savatflh",
+                  "title": "04",
+                  "icon": null,
+                  "hasTitleNumberOutlined": false,
+                  "vaultName": "vault",
+                  "children": [
+                    {
+                      "key": "w2cd8bd31a6vqoz9k6jbrf5",
+                      "title": "2022-04-07",
+                      "icon": null,
+                      "hasTitleNumberOutlined": false,
+                      "vaultName": "vault",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "9m1s0nes0vm0a7mlbgw5hv7",
+      "title": "Data Processing",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": [
+        {
+          "key": "co833gfm2u5fi0ti62h2yr1",
+          "title": "XML",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "pju469ro805gknxx6p4lvar",
+      "title": "Database",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": [
+        {
+          "key": "dh1u6blnzbdsuj0bvpkj86f",
+          "title": "Elasticsearch",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": [
+            {
+              "key": "fg0husctqcykweji6k1bduj",
+              "title": "Installation",
+              "icon": null,
+              "hasTitleNumberOutlined": false,
+              "vaultName": "vault",
+              "children": []
+            }
+          ]
+        },
+        {
+          "key": "leu953eahqsq5wx4rj5daoz",
+          "title": "Kibana",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "rgk582xpzobmhxo68emjgo8",
+          "title": "MongoDB",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "d5z0m0de358j7ufie2g3kf6",
+          "title": "PostgreSQL",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "u8759ci9c5nhowv2j2ng980",
+          "title": "SQLite",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "jro9xnfg791cmppo1p7oc90",
+      "title": "Dendron",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": []
+    },
+    {
+      "key": "7bg28rkj42r5n52oxwezco3",
+      "title": "Git",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": []
+    },
+    {
+      "key": "77irrssbs1ld66im3uhw4yx",
+      "title": "Linux",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": [
+        {
+          "key": "t6vre0j2jqp10vmdhnyxgca",
+          "title": "Bash",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": [
+            {
+              "key": "f3ml08eg24b8xkshdlm4a5o",
+              "title": "Regex",
+              "icon": null,
+              "hasTitleNumberOutlined": false,
+              "vaultName": "vault",
+              "children": []
+            },
+            {
+              "key": "pzlgua942o4wzmg1tjntnyc",
+              "title": "Scripts",
+              "icon": null,
+              "hasTitleNumberOutlined": false,
+              "vaultName": "vault",
+              "children": []
+            }
+          ]
+        },
+        {
+          "key": "jfrgnj07atr3cmvedlxjmmw",
+          "title": "dnf",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "x9wl80kifhmlnfpu6n1xf28",
+          "title": "Docker",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "hvg1j3rsmxfb0gb30hlcm95",
+          "title": "Flatpak",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "vuf856wdzz48eh1v4j3ee5j",
+          "title": "jq",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "12rattgdgs3d69gtri9akdx",
+          "title": "SSH",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "vw3w71xke9t97f8h3sln7m1",
+          "title": "Systemd",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "1j1pb0bvtzodgc7xevp20mb",
+          "title": "Tmux",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "wudaj6ca4t8b8fl0m4d0iv8",
+          "title": "Tricks",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "ghxk5d49n3245sgk2mn9fcm",
+          "title": "Utils",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "281ffwjjfohkrtv8a1hnmir",
+          "title": "Vim",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": [
+            {
+              "key": "3k93bkk8clxzaajnf3h8r7r",
+              "title": "Nvim-R",
+              "icon": null,
+              "hasTitleNumberOutlined": false,
+              "vaultName": "vault",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "mnoouhphnmr5mdj6is5oaz6",
+      "title": "Python",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": [
+        {
+          "key": "4beyy1jr7rxh18x0e5sw6vl",
+          "title": "Conda",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "8d8amtcalpu27ltha1q3c2i",
+          "title": "Higher-Order Functions",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "2zll2pw3nocj8zhn8t5opz7",
+          "title": "Pandas",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "i9y4qrcy19epqvrei47mvfk",
+          "title": "Requests",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "puzmvixo5001k6mnozgnoag",
+          "title": "Tricks",
+          "icon": null,
+          "hasTitleNumberOutlined": false,
+          "vaultName": "vault",
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "bfuvlavhie001y6cersdn98",
+      "title": "Tags",
+      "icon": "numberOutlined",
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": [
+        {
+          "key": "5d0nf324ygj7yoo85ypt55g",
+          "title": "R",
+          "icon": null,
+          "hasTitleNumberOutlined": true,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "1fvcemnvh68s4e2qr9jz3bm",
+          "title": "BioThings",
+          "icon": null,
+          "hasTitleNumberOutlined": true,
+          "vaultName": "vault",
+          "children": [
+            {
+              "key": "3itb7ks464cem5nnu377zie",
+              "title": "Biothings Auth",
+              "icon": null,
+              "hasTitleNumberOutlined": true,
+              "vaultName": "vault",
+              "children": []
+            },
+            {
+              "key": "vm75dwxqvl6hov19p9lexz0",
+              "title": "MyChem",
+              "icon": null,
+              "hasTitleNumberOutlined": true,
+              "vaultName": "vault",
+              "children": [
+                {
+                  "key": "q6vugb61pqwxkq5yfzt4ncg",
+                  "title": "MyChem Paper",
+                  "icon": null,
+                  "hasTitleNumberOutlined": true,
+                  "vaultName": "vault",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "7xl658uu11ehk96eqzlr4e5",
+          "title": "ES8",
+          "icon": null,
+          "hasTitleNumberOutlined": true,
+          "vaultName": "vault",
+          "children": []
+        },
+        {
+          "key": "310u01cu9vysy5y3lyds6qr",
+          "title": "SmartAPI",
+          "icon": null,
+          "hasTitleNumberOutlined": true,
+          "vaultName": "vault",
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "lkcpotdu9x59v4mh3u6z077",
+      "title": "VS Code",
+      "icon": null,
+      "hasTitleNumberOutlined": false,
+      "vaultName": "vault",
+      "children": []
+    }
+  ],
+  "child2parent": {
+    "qz307gmzctlyybze4spt8ug": null,
+    "jgwsrsqomd2kd3cj73wg804": null,
+    "e0dxh083vpjhkdjw955e2xv": null,
+    "e6ajkdl8wimjtmi5edjdkkt": "e0dxh083vpjhkdjw955e2xv",
+    "ivdslc03elvxsw34fwjbvhv": "e6ajkdl8wimjtmi5edjdkkt",
+    "9y8uvew2sqdfv2ftqyolhfg": null,
+    "7pat6pg98v7e67w91gp8ous": "9y8uvew2sqdfv2ftqyolhfg",
+    "3g22rduq2yiwiloagst4rx9": "7pat6pg98v7e67w91gp8ous",
+    "g7zaciaaudmvihlllz15xt0": "7pat6pg98v7e67w91gp8ous",
+    "jobh5yj2kuo1fdnn32stjar": "9y8uvew2sqdfv2ftqyolhfg",
+    "a6uj29b5sg2arnnjvwz9w6y": "jobh5yj2kuo1fdnn32stjar",
+    "ejexjywmltcdkgxa8y9n2la": null,
+    "pgnd33rp2agino603t68p3m": "ejexjywmltcdkgxa8y9n2la",
+    "fquzadujp5on9845ixlmxnk": "pgnd33rp2agino603t68p3m",
+    "os3bhd1sdlntdkb7ntg8wna": "fquzadujp5on9845ixlmxnk",
+    "ht7dz6z9eaetm447pm9los7": "os3bhd1sdlntdkb7ntg8wna",
+    "sisy0cg7b6ymseejpwfl9qs": "os3bhd1sdlntdkb7ntg8wna",
+    "90nvjxk3p9ewja0savatflh": "fquzadujp5on9845ixlmxnk",
+    "w2cd8bd31a6vqoz9k6jbrf5": "90nvjxk3p9ewja0savatflh",
+    "9m1s0nes0vm0a7mlbgw5hv7": null,
+    "co833gfm2u5fi0ti62h2yr1": "9m1s0nes0vm0a7mlbgw5hv7",
+    "pju469ro805gknxx6p4lvar": null,
+    "dh1u6blnzbdsuj0bvpkj86f": "pju469ro805gknxx6p4lvar",
+    "fg0husctqcykweji6k1bduj": "dh1u6blnzbdsuj0bvpkj86f",
+    "leu953eahqsq5wx4rj5daoz": "pju469ro805gknxx6p4lvar",
+    "rgk582xpzobmhxo68emjgo8": "pju469ro805gknxx6p4lvar",
+    "d5z0m0de358j7ufie2g3kf6": "pju469ro805gknxx6p4lvar",
+    "u8759ci9c5nhowv2j2ng980": "pju469ro805gknxx6p4lvar",
+    "jro9xnfg791cmppo1p7oc90": null,
+    "7bg28rkj42r5n52oxwezco3": null,
+    "77irrssbs1ld66im3uhw4yx": null,
+    "t6vre0j2jqp10vmdhnyxgca": "77irrssbs1ld66im3uhw4yx",
+    "f3ml08eg24b8xkshdlm4a5o": "t6vre0j2jqp10vmdhnyxgca",
+    "pzlgua942o4wzmg1tjntnyc": "t6vre0j2jqp10vmdhnyxgca",
+    "jfrgnj07atr3cmvedlxjmmw": "77irrssbs1ld66im3uhw4yx",
+    "x9wl80kifhmlnfpu6n1xf28": "77irrssbs1ld66im3uhw4yx",
+    "hvg1j3rsmxfb0gb30hlcm95": "77irrssbs1ld66im3uhw4yx",
+    "vuf856wdzz48eh1v4j3ee5j": "77irrssbs1ld66im3uhw4yx",
+    "12rattgdgs3d69gtri9akdx": "77irrssbs1ld66im3uhw4yx",
+    "vw3w71xke9t97f8h3sln7m1": "77irrssbs1ld66im3uhw4yx",
+    "1j1pb0bvtzodgc7xevp20mb": "77irrssbs1ld66im3uhw4yx",
+    "wudaj6ca4t8b8fl0m4d0iv8": "77irrssbs1ld66im3uhw4yx",
+    "ghxk5d49n3245sgk2mn9fcm": "77irrssbs1ld66im3uhw4yx",
+    "281ffwjjfohkrtv8a1hnmir": "77irrssbs1ld66im3uhw4yx",
+    "3k93bkk8clxzaajnf3h8r7r": "281ffwjjfohkrtv8a1hnmir",
+    "mnoouhphnmr5mdj6is5oaz6": null,
+    "4beyy1jr7rxh18x0e5sw6vl": "mnoouhphnmr5mdj6is5oaz6",
+    "8d8amtcalpu27ltha1q3c2i": "mnoouhphnmr5mdj6is5oaz6",
+    "2zll2pw3nocj8zhn8t5opz7": "mnoouhphnmr5mdj6is5oaz6",
+    "i9y4qrcy19epqvrei47mvfk": "mnoouhphnmr5mdj6is5oaz6",
+    "puzmvixo5001k6mnozgnoag": "mnoouhphnmr5mdj6is5oaz6",
+    "bfuvlavhie001y6cersdn98": null,
+    "5d0nf324ygj7yoo85ypt55g": "bfuvlavhie001y6cersdn98",
+    "1fvcemnvh68s4e2qr9jz3bm": "bfuvlavhie001y6cersdn98",
+    "3itb7ks464cem5nnu377zie": "1fvcemnvh68s4e2qr9jz3bm",
+    "vm75dwxqvl6hov19p9lexz0": "1fvcemnvh68s4e2qr9jz3bm",
+    "q6vugb61pqwxkq5yfzt4ncg": "vm75dwxqvl6hov19p9lexz0",
+    "7xl658uu11ehk96eqzlr4e5": "bfuvlavhie001y6cersdn98",
+    "310u01cu9vysy5y3lyds6qr": "bfuvlavhie001y6cersdn98",
+    "lkcpotdu9x59v4mh3u6z077": null
+  },
+  "notesLabelById": {
+    "qz307gmzctlyybze4spt8ug": "R",
+    "jgwsrsqomd2kd3cj73wg804": "AWS",
+    "e0dxh083vpjhkdjw955e2xv": "Bioinformatics",
+    "e6ajkdl8wimjtmi5edjdkkt": "Blast",
+    "ivdslc03elvxsw34fwjbvhv": "Evalues",
+    "9y8uvew2sqdfv2ftqyolhfg": "BioThings",
+    "7pat6pg98v7e67w91gp8ous": "BioThings SDK",
+    "3g22rduq2yiwiloagst4rx9": "Using Biothings SDK with ES8",
+    "g7zaciaaudmvihlllz15xt0": "Hub Shell",
+    "jobh5yj2kuo1fdnn32stjar": "Translator",
+    "a6uj29b5sg2arnnjvwz9w6y": "Biolink Model",
+    "ejexjywmltcdkgxa8y9n2la": "Daily",
+    "pgnd33rp2agino603t68p3m": "Journal",
+    "fquzadujp5on9845ixlmxnk": "2022",
+    "os3bhd1sdlntdkb7ntg8wna": "03",
+    "ht7dz6z9eaetm447pm9los7": "2022-03-24",
+    "sisy0cg7b6ymseejpwfl9qs": "2022-03-28",
+    "90nvjxk3p9ewja0savatflh": "04",
+    "w2cd8bd31a6vqoz9k6jbrf5": "2022-04-07",
+    "9m1s0nes0vm0a7mlbgw5hv7": "Data Processing",
+    "co833gfm2u5fi0ti62h2yr1": "XML",
+    "pju469ro805gknxx6p4lvar": "Database",
+    "dh1u6blnzbdsuj0bvpkj86f": "Elasticsearch",
+    "fg0husctqcykweji6k1bduj": "Installation",
+    "leu953eahqsq5wx4rj5daoz": "Kibana",
+    "rgk582xpzobmhxo68emjgo8": "MongoDB",
+    "d5z0m0de358j7ufie2g3kf6": "PostgreSQL",
+    "u8759ci9c5nhowv2j2ng980": "SQLite",
+    "jro9xnfg791cmppo1p7oc90": "Dendron",
+    "7bg28rkj42r5n52oxwezco3": "Git",
+    "77irrssbs1ld66im3uhw4yx": "Linux",
+    "t6vre0j2jqp10vmdhnyxgca": "Bash",
+    "f3ml08eg24b8xkshdlm4a5o": "Regex",
+    "pzlgua942o4wzmg1tjntnyc": "Scripts",
+    "jfrgnj07atr3cmvedlxjmmw": "dnf",
+    "x9wl80kifhmlnfpu6n1xf28": "Docker",
+    "hvg1j3rsmxfb0gb30hlcm95": "Flatpak",
+    "vuf856wdzz48eh1v4j3ee5j": "jq",
+    "12rattgdgs3d69gtri9akdx": "SSH",
+    "vw3w71xke9t97f8h3sln7m1": "Systemd",
+    "1j1pb0bvtzodgc7xevp20mb": "Tmux",
+    "wudaj6ca4t8b8fl0m4d0iv8": "Tricks",
+    "ghxk5d49n3245sgk2mn9fcm": "Utils",
+    "281ffwjjfohkrtv8a1hnmir": "Vim",
+    "3k93bkk8clxzaajnf3h8r7r": "Nvim-R",
+    "mnoouhphnmr5mdj6is5oaz6": "Python",
+    "4beyy1jr7rxh18x0e5sw6vl": "Conda",
+    "8d8amtcalpu27ltha1q3c2i": "Higher-Order Functions",
+    "2zll2pw3nocj8zhn8t5opz7": "Pandas",
+    "i9y4qrcy19epqvrei47mvfk": "Requests",
+    "puzmvixo5001k6mnozgnoag": "Tricks",
+    "bfuvlavhie001y6cersdn98": "Tags",
+    "5d0nf324ygj7yoo85ypt55g": "R",
+    "1fvcemnvh68s4e2qr9jz3bm": "BioThings",
+    "3itb7ks464cem5nnu377zie": "Biothings Auth",
+    "vm75dwxqvl6hov19p9lexz0": "MyChem",
+    "q6vugb61pqwxkq5yfzt4ncg": "MyChem Paper",
+    "7xl658uu11ehk96eqzlr4e5": "ES8",
+    "310u01cu9vysy5y3lyds6qr": "SmartAPI",
+    "lkcpotdu9x59v4mh3u6z077": "VS Code"
+  }
+}

@@ -1,0 +1,563 @@
+<h1 id="nvim-r">Nvim-R<a aria-hidden="true" class="anchor-heading icon-link" href="#nvim-r"></a></h1>
+<h2 id="nvim-r-plugin">Nvim-R plugin<a aria-hidden="true" class="anchor-heading icon-link" href="#nvim-r-plugin"></a></h2>
+<p>Vim plugin for R integration.</p>
+<ul>
+<li>Start/Close R</li>
+<li>Send lines, selection, paragraphs, functions, blocks, entire file to R, knitr, pdflatex</li>
+<li>Object browser</li>
+<li>Help browser</li>
+<li>Completion</li>
+<li>Object introspection</li>
+</ul>
+<h2 id="key-bindings">Key bindings<a aria-hidden="true" class="anchor-heading icon-link" href="#key-bindings"></a></h2>
+<p>Note: The <code>&#x3C;LocalLeader></code> is '\' by default.</p>
+<p>Note: It is recommended the use of different keys for <code>&#x3C;Leader></code> and
+<code>&#x3C;LocalLeader></code> to avoid clashes between filetype plugins and general plugins
+key binds. See <code>|filetype-plugins|</code>, <code>|maplocalleader|</code> and
+<a href="/knowledgebase/faq-and-tips#remap-the-localleader">Nvim-R-localleader</a>.</p>
+<p>To use the plugin, open a <code>.R</code>, <code>.Rnw</code>, <code>.Rd</code>, <code>.Rmd</code> or <code>.Rrst</code> file with Vim and
+type <code>&#x3C;LocalLeader>rf</code>. Then, you will be able to use the plugin key bindings to
+send commands to R.</p>
+<p>This plugin has many key bindings, which correspond with menu entries. In the
+list below, the backslash represents the <code>&#x3C;LocalLeader></code>. Not all menu items and
+key bindings are enabled in all filetypes supported by the plugin (<code>r</code>,
+<code>rnoweb</code>, <code>rhelp</code>, <code>rrst</code>, <code>rmd</code>).</p>
+<h3 id="startclose">Start/Close<a aria-hidden="true" class="anchor-heading icon-link" href="#startclose"></a></h3>
+<div class="table-responsive">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Action</th><th>Default shortcut</th></tr></thead><tbody><tr><td>Start R (default)</td><td>\rf</td></tr><tr><td>Start R (custom)</td><td>\rc</td></tr><tr><td>Close R (no save)</td><td>\rq</td></tr><tr><td>Stop (interrupt) R</td><td>:RStop</td></tr></tbody></table></div>
+<h3 id="send">Send<a aria-hidden="true" class="anchor-heading icon-link" href="#send"></a></h3>
+<div class="table-responsive">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Action</th><th>Default shortcut</th></tr></thead><tbody><tr><td>File</td><td>\aa</td></tr><tr><td>File (echo)</td><td>\ae</td></tr><tr><td>File (open <code>.Rout</code>)</td><td>\ao</td></tr><tr><td>Block (cur)</td><td>\bb</td></tr><tr><td>Block (cur, echo)</td><td>\be</td></tr><tr><td>Block (cur, down)</td><td>\bd</td></tr><tr><td>Block (cur, echo and down)</td><td>\ba</td></tr><tr><td>Chunk (cur)</td><td>\cc</td></tr><tr><td>Chunk (cur, echo)</td><td>\ce</td></tr><tr><td>Chunk (cur, down)</td><td>\cd</td></tr><tr><td>Chunk (cur, echo and down)</td><td>\ca</td></tr><tr><td>Chunk (from first to here)</td><td>\ch</td></tr><tr><td>Function (cur)</td><td>\ff</td></tr><tr><td>Function (cur, echo)</td><td>\fe</td></tr><tr><td>Function (cur and down)</td><td>\fd</td></tr><tr><td>Function (cur, echo and down)</td><td>\fa</td></tr><tr><td>Selection</td><td>\ss</td></tr><tr><td>Selection (echo)</td><td>\se</td></tr><tr><td>Selection (and down)</td><td>\sd</td></tr><tr><td>Selection (echo and down)</td><td>\sa</td></tr><tr><td>Selection (evaluate and insert output in new tab)</td><td>\so</td></tr><tr><td>Send motion region</td><td>\m{motion}</td></tr><tr><td>Paragraph</td><td>\pp</td></tr><tr><td>Paragraph (echo)</td><td>\pe</td></tr><tr><td>Paragraph (and down)</td><td>\pd</td></tr><tr><td>Paragraph (echo and down)</td><td>\pa</td></tr><tr><td>Line</td><td>\l</td></tr><tr><td>Line (and down)</td><td>\d</td></tr><tr><td>Line (and new one)</td><td>\q</td></tr><tr><td>Left part of line (cur)</td><td>\r\&#x3C;Left></td></tr><tr><td>Right part of line (cur)</td><td>\r\&#x3C;Right></td></tr><tr><td>Line (evaluate and insert the output a comment)</td><td>\o</td></tr><tr><td>All lines above the current one</td><td>\su</td></tr></tbody></table></div>
+<h3 id="command">Command<a aria-hidden="true" class="anchor-heading icon-link" href="#command"></a></h3>
+<div class="table-responsive">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Action</th><th>Default shortcut</th></tr></thead><tbody><tr><td>List space</td><td>\rl</td></tr><tr><td>Clear console</td><td>\rr</td></tr><tr><td>Remove objects and clear console</td><td>\rm</td></tr><tr><td>Print (cur)</td><td>\rp</td></tr><tr><td>Names (cur)</td><td>\rn</td></tr><tr><td>Structure (cur)</td><td>\rt</td></tr><tr><td>View data.frame (cur) in new tab</td><td>\rv</td></tr><tr><td>View data.frame (cur) in horizontal split</td><td>\vs</td></tr><tr><td>View data.frame (cur) in vertical split</td><td>\vv</td></tr><tr><td>View head(data.frame) (cur) in horizontal split</td><td>\vh</td></tr><tr><td>Run dput(cur) and show output in new tab</td><td>\td</td></tr><tr><td>Arguments (cur)</td><td>\ra</td></tr><tr><td>Example (cur)</td><td>\re</td></tr><tr><td>Help (cur)</td><td>\rh</td></tr><tr><td>Summary (cur)</td><td>\rs</td></tr><tr><td>Plot (cur)</td><td>\rg</td></tr><tr><td>Plot and summary (cur)</td><td>\rb</td></tr><tr><td>Set working directory (cur file path)</td><td>\rd</td></tr><tr><td>Sweave (cur file)</td><td>\sw</td></tr><tr><td>Sweave and PDF (cur file)</td><td>\sp</td></tr><tr><td>Sweave, BibTeX and PDF (cur file) (Linux/Unix)</td><td>\sb</td></tr><tr><td>Knit (cur file)</td><td>\kn</td></tr><tr><td>Knit, BibTeX and PDF (cur file) (Linux/Unix)</td><td>\kb</td></tr><tr><td>Knit and PDF (cur file)</td><td>\kp</td></tr><tr><td>Knit and Beamer PDF (cur file)</td><td>\kl</td></tr><tr><td>Knit and HTML (cur file, verbose)</td><td>\kh</td></tr><tr><td>Knit and ODT (cur file)</td><td>\ko</td></tr><tr><td>Knit and Word Document (cur file)</td><td>\kw</td></tr><tr><td>Markdown render (cur file)</td><td>\kr</td></tr><tr><td>Spin (cur file) (only .R)</td><td>\ks</td></tr><tr><td>Markdown render (cur file) (all in YAML)</td><td>\ka</td></tr><tr><td>Quarto render (cur file)</td><td>\qr</td></tr><tr><td>Quarto preview (cur file)</td><td>\qp</td></tr><tr><td>Quarto stop preview (all files)</td><td>\qs</td></tr><tr><td>Open attachment of reference (Rmd, Rnoweb)</td><td>\oa</td></tr><tr><td>Open PDF (cur file)</td><td>\op</td></tr><tr><td>Search forward (SyncTeX)</td><td>\gp</td></tr><tr><td>Go to LaTeX (SyncTeX)</td><td>\gt</td></tr><tr><td>Debug (function)</td><td>\bg</td></tr><tr><td>Undebug (function)</td><td>\ud</td></tr><tr><td>Build tags file (cur dir)</td><td>:RBuildTags</td></tr></tbody></table></div>
+<h3 id="edit">Edit<a aria-hidden="true" class="anchor-heading icon-link" href="#edit"></a></h3>
+<div class="table-responsive">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Action</th><th>Default shortcut</th></tr></thead><tbody><tr><td>Insert <code>&#x3C;-</code></td><td>_</td></tr><tr><td>Complete object name</td><td>CTRL-X CTRL-O</td></tr><tr><td>Indent (line)</td><td>==</td></tr><tr><td>Indent (selected lines)</td><td>=</td></tr><tr><td>Indent (whole buffer)</td><td>gg=G</td></tr><tr><td>Toggle comment (line, sel)</td><td>\xx</td></tr><tr><td>Comment (line, sel)</td><td>\xc</td></tr><tr><td>Uncomment (line, sel)</td><td>\xu</td></tr><tr><td>Add/Align right comment (line, sel)</td><td>\;</td></tr><tr><td>Go (next R chunk)</td><td>\gn</td></tr><tr><td>Go (previous R chunk)</td><td>\gN</td></tr></tbody></table></div>
+<h3 id="object-browser">Object Browser<a aria-hidden="true" class="anchor-heading icon-link" href="#object-browser"></a></h3>
+<div class="table-responsive">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Action</th><th>Default shortcut</th></tr></thead><tbody><tr><td>Open/Close</td><td>\ro</td></tr><tr><td>Expand (all lists)</td><td>\r=</td></tr><tr><td>Collapse (all lists)</td><td>\r-</td></tr><tr><td>Toggle (cur)</td><td>Enter</td></tr></tbody></table></div>
+<h3 id="help">Help<a aria-hidden="true" class="anchor-heading icon-link" href="#help"></a></h3>
+<div class="table-responsive">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Action</th><th>Default shortcut</th></tr></thead><tbody><tr><td>Help (plugin)</td><td></td></tr><tr><td>Help (R)</td><td>:Rhelp</td></tr></tbody></table></div>
+<h2 id="custom-keybindings">Custom keybindings<a aria-hidden="true" class="anchor-heading icon-link" href="#custom-keybindings"></a></h2>
+<p>To customize a key binding you could put something like this in your <code>vimrc</code>:</p>
+<pre class="language-vim"><code class="language-vim"><span class="token keyword">function</span><span class="token operator">!</span> s<span class="token punctuation">:</span><span class="token function">customNvimRMappings</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+   nmap <span class="token operator">&#x3C;</span><span class="token keyword">buffer</span><span class="token operator">></span> <span class="token operator">&#x3C;</span>Leader<span class="token operator">></span><span class="token builtin">sr</span> <span class="token operator">&#x3C;</span>Plug<span class="token operator">></span>RStart
+   imap <span class="token operator">&#x3C;</span><span class="token keyword">buffer</span><span class="token operator">></span> <span class="token operator">&#x3C;</span>Leader<span class="token operator">></span><span class="token builtin">sr</span> <span class="token operator">&#x3C;</span>Plug<span class="token operator">></span>RStart
+   vmap <span class="token operator">&#x3C;</span><span class="token keyword">buffer</span><span class="token operator">></span> <span class="token operator">&#x3C;</span>Leader<span class="token operator">></span><span class="token builtin">sr</span> <span class="token operator">&#x3C;</span>Plug<span class="token operator">></span>RStart
+<span class="token keyword">endfunction</span>
+augroup myNvimR
+   au<span class="token operator">!</span>
+   <span class="token builtin">autocmd</span> <span class="token keyword">filetype</span> <span class="token keyword">r</span> <span class="token keyword">call</span> s<span class="token punctuation">:</span><span class="token function">customNvimRMappings</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+augroup end
+</code></pre>
+<h2 id="commands">Commands<a aria-hidden="true" class="anchor-heading icon-link" href="#commands"></a></h2>
+<h3 id="starclose-r">Star/Close R<a aria-hidden="true" class="anchor-heading icon-link" href="#starclose-r"></a></h3>
+<ul>
+<li>RStart</li>
+<li>RCustomStart</li>
+<li>RClose</li>
+<li>RSaveClose</li>
+</ul>
+<h3 id="clear-r-console">Clear R console<a aria-hidden="true" class="anchor-heading icon-link" href="#clear-r-console"></a></h3>
+<ul>
+<li>RClearAll</li>
+<li>RClearConsole</li>
+</ul>
+<h3 id="edit-r-code">Edit R code<a aria-hidden="true" class="anchor-heading icon-link" href="#edit-r-code"></a></h3>
+<ul>
+<li>RSimpleComment</li>
+<li>RSimpleUnComment</li>
+<li>RToggleComment</li>
+<li>RRightComment</li>
+<li>RIndent</li>
+<li>RNextRChunk</li>
+<li>RPreviousRChunk</li>
+</ul>
+<h3 id="send-code-to-r-console">Send code to R console<a aria-hidden="true" class="anchor-heading icon-link" href="#send-code-to-r-console"></a></h3>
+<ul>
+<li>RSendLine</li>
+<li>RSendAboveLines</li>
+<li>RSendSelection</li>
+<li>RSendMotion</li>
+<li>RSendSelAndInsertOutput</li>
+<li>RSendMBlock</li>
+<li>RSendParagraph</li>
+<li>RSendFunction</li>
+<li>RSendFile</li>
+</ul>
+<h3 id="send-command-to-r">Send command to R<a aria-hidden="true" class="anchor-heading icon-link" href="#send-command-to-r"></a></h3>
+<ul>
+<li>RHelp</li>
+<li>RPlot</li>
+<li>RSPlot</li>
+<li>RShowArgs</li>
+<li>RShowEx</li>
+<li>RShowRout</li>
+<li>RObjectNames</li>
+<li>RObjectPr</li>
+<li>RObjectStr</li>
+<li>RViewDF (view data.frame or other object)</li>
+<li>RViewDFs (view object in split window)</li>
+<li>RViewDFv (view object in vertically split window)</li>
+<li>RViewDFa (view object in split window above the current one)</li>
+<li>RDputObj</li>
+<li>RSetwd</li>
+<li>RSummary</li>
+<li>RListSpace</li>
+</ul>
+<h3 id="support-to-sweave-and-knitr">Support to Sweave and knitr<a aria-hidden="true" class="anchor-heading icon-link" href="#support-to-sweave-and-knitr"></a></h3>
+<ul>
+<li>RBibTeXK (Knitr)</li>
+<li>RKnit</li>
+<li>RMakeHTML</li>
+<li>RMakePDFK (Knitr)</li>
+<li>RMakePDFKb (.Rmd, beamer)</li>
+<li>RMakeODT (.Rmd, Open document)</li>
+<li>RMakeWord (.Rmd, Word document)</li>
+<li>RMakeRmd (rmarkdown default)</li>
+<li>RMakeAll (rmarkdown all in YAML)</li>
+<li>ROpenPDF</li>
+<li>RNextRChunk</li>
+<li>RPreviousRChunk</li>
+</ul>
+<h3 id="support-to-quarto">Support to Quarto<a aria-hidden="true" class="anchor-heading icon-link" href="#support-to-quarto"></a></h3>
+<ul>
+<li>RQuartoRender</li>
+<li>RQuartoPreview</li>
+<li>RQuartoStop</li>
+</ul>
+<hr>
+<h2 id="tags">Tags<a aria-hidden="true" class="anchor-heading icon-link" href="#tags"></a></h2>
+<ol>
+<li><a class="color-tag" style="--tag-color: #a552e6;" href="/knowledgebase/notes/5d0nf324ygj7yoo85ypt55g">R</a></li>
+</ol>

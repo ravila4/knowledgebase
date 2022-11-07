@@ -1,0 +1,17 @@
+<h1 id="conda">Conda<a aria-hidden="true" class="anchor-heading icon-link" href="#conda"></a></h1>
+<h2 id="environment-management">Environment Management<a aria-hidden="true" class="anchor-heading icon-link" href="#environment-management"></a></h2>
+<h3 id="updating-all-environment-packages">Updating all environment packages:<a aria-hidden="true" class="anchor-heading icon-link" href="#updating-all-environment-packages"></a></h3>
+<pre><code>conda update --all
+</code></pre>
+<h3 id="cloning-an-environment">Cloning an environment:<a aria-hidden="true" class="anchor-heading icon-link" href="#cloning-an-environment"></a></h3>
+<pre><code>conda create -n new-env --clone base
+</code></pre>
+<h3 id="exporting-an-environment">Exporting an environment:<a aria-hidden="true" class="anchor-heading icon-link" href="#exporting-an-environment"></a></h3>
+<pre><code>conda env export | grep -v "^prefix: " > environment.yml
+</code></pre>
+<h3 id="re-creating-an-environment-from-a-file">Re-creating an environment from a file:<a aria-hidden="true" class="anchor-heading icon-link" href="#re-creating-an-environment-from-a-file"></a></h3>
+<pre><code>conda env create -f environment.yml
+</code></pre>
+<h3 id="removing-an-environment">Removing an environment<a aria-hidden="true" class="anchor-heading icon-link" href="#removing-an-environment"></a></h3>
+<pre><code>conda env remove -n ENV_NAME
+</code></pre>

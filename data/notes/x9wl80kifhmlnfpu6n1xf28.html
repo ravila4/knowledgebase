@@ -1,0 +1,133 @@
+<h1 id="docker">Docker<a aria-hidden="true" class="anchor-heading icon-link" href="#docker"></a></h1>
+<h2 id="installing-docker">Installing Docker<a aria-hidden="true" class="anchor-heading icon-link" href="#installing-docker"></a></h2>
+<p>Installation steps have changed quite frequently with new releases of Docker. I will do my best to keep this up-to date, but no guarantees. Check your current release's instructions.</p>
+<h3 id="ubuntu-installation-july-2020">Ubuntu installation (July 2020)<a aria-hidden="true" class="anchor-heading icon-link" href="#ubuntu-installation-july-2020"></a></h3>
+<p>Older versions of Docker were called docker, docker.io, or docker-engine. Now, the packages to install are docker-ce, docker-ce-cli, and containerd.io.</p>
+<p>Official documentation:</p>
+<p><a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a></p>
+<p>For Ubuntu 20.04, follow instructions <a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04">here</a>.</p>
+<h3 id="fedora-installation-january-2020">Fedora installation (January 2020)<a aria-hidden="true" class="anchor-heading icon-link" href="#fedora-installation-january-2020"></a></h3>
+<pre><code>sudo dnf install docker
+sudo sudo systemctl enable docker.service
+sudo systemctl start docker.service
+</code></pre>
+<p><strong>Note:</strong> Fedora 31 had problems starting the docker daemon.</p>
+<p>Debugging with: <code>sudo dockerd --debug</code> shows "Devices cgroup isn't mounted". The solution was to modify the grub in order to start cgroup</p>
+<pre><code>sudo dnf install -y grubby
+sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+</code></pre>
+<p>Reboot computer.</p>
+<p>Finally, add user to the Docker group:</p>
+<pre><code>sudo groupadd docker &#x26;&#x26; sudo gpasswd -a ${USER} docker
+</code></pre>
+<p>Log out and in again to see changes.</p>
+<h2 id="getting-docker-images">Getting Docker Images<a aria-hidden="true" class="anchor-heading icon-link" href="#getting-docker-images"></a></h2>
+<p>Pull from Docker Hub:</p>
+<pre><code>docker pull hub.docker.com/r/microsoft/powershell
+</code></pre>
+<p>We may need to specify a tag, e.g.:</p>
+<pre><code>docker pull ouchc/relion3.1:ubuntu16.04
+</code></pre>
+<p>Search for images: <code>docker search</code></p>
+<p>See installed images: <code>docker images</code></p>
+<h2 id="running-containers">Running Containers<a aria-hidden="true" class="anchor-heading icon-link" href="#running-containers"></a></h2>
+<p>Use <code>docker run</code> to initially run a container.</p>
+<h3 id="common-options">Common options:<a aria-hidden="true" class="anchor-heading icon-link" href="#common-options"></a></h3>
+<p>-d
+: run in background (daemonize)</p>
+<p>-i
+: interactive</p>
+<p>-t
+: tty</p>
+<p>-p
+: make a port available outside container (<strong>HOST:CONTAINER</strong>)</p>
+<p>-v
+: mount a volume</p>
+<p>--name
+: assign container a name</p>
+<p>--rm
+: remove container when it exits</p>
+<h2 id="interacting-with-containers">Interacting with containers<a aria-hidden="true" class="anchor-heading icon-link" href="#interacting-with-containers"></a></h2>
+<h3 id="basic-commands">Basic commands<a aria-hidden="true" class="anchor-heading icon-link" href="#basic-commands"></a></h3>
+<p>Once a container is running, you can easily start or stop it.</p>
+<p>Start a container (can use an assigned name): <code>docker start</code></p>
+<p>Stop a container <code>docker stop</code></p>
+<p>Execute a command off a running container: <code>docker exec</code></p>
+<p>Look inside container: <code>docker logs</code></p>
+<h3 id="connect-to-a-container-as-root">Connect to a container as root<a aria-hidden="true" class="anchor-heading icon-link" href="#connect-to-a-container-as-root"></a></h3>
+<p><code>docker exec -u 0 -it container_id /bin/bash</code></p>
+<h2 id="listing-containers-in-docker">Listing Containers in Docker<a aria-hidden="true" class="anchor-heading icon-link" href="#listing-containers-in-docker"></a></h2>
+<p>To show only running containers use:</p>
+<pre><code>docker container ls
+</code></pre>
+<p>The old, shorter way of doing this is <code>docker ps</code>.</p>
+<h3 id="options">Options:<a aria-hidden="true" class="anchor-heading icon-link" href="#options"></a></h3>
+<p>-a
+: see all containers</p>
+<p>-s
+: see container sizes</p>
+<h2 id="clearing-non-running-containers">Clearing Non-running Containers<a aria-hidden="true" class="anchor-heading icon-link" href="#clearing-non-running-containers"></a></h2>
+<p>Containers that are not running are not taking any system resources besides disk space.</p>
+<p>The docker run flag <code>--rm</code> will automatically remove a container when it exits.</p>
+<p>Remove a specific container: <code>docker rm 3e552code34a</code></p>
+<p>Removes all stopped containers: <code>docker container prune</code></p>
+<p>Clean unused containers, networks, images, and volumes: <code>docker system prune</code></p>
+<h2 id="mounting-a-host-filesystem">Mounting a Host Filesystem<a aria-hidden="true" class="anchor-heading icon-link" href="#mounting-a-host-filesystem"></a></h2>
+<p>Use the <code>-v</code> flag:</p>
+<pre><code>docker run -v /host/directory:/container/directory -other -options image_name command_to_run
+</code></pre>
+<h3 id="fix-for-permissions-issues">Fix for permissions issues<a aria-hidden="true" class="anchor-heading icon-link" href="#fix-for-permissions-issues"></a></h3>
+<p>In Fedora, SELinux can cause issues with mounting volumes.
+The solution is to issue a SELinux rule:
+<code>chcon -Rt svirt_sandbox_file_t /path/to/volume</code></p>
+<p>This got easier recently since Docker finally merged a patch in docker-1.7.</p>
+<p>This patch adds support for "z" and "Z" as options on the volume mounts (-v).</p>
+<p>For example:</p>
+<pre><code>docker run -v /var/db:/var/db:z rhel7 /bin/sh
+</code></pre>
+<p>Will automatically do the <code>chcon -Rt svirt_sandbox_file_t /var/db</code>.</p>
+<p>Even better, you can use Z.</p>
+<pre><code>docker run -v /var/db:/var/db:Z rhel7 /bin/sh
+</code></pre>
+<p>This will label the content inside the container with the exact MCS label that the container will run with, basically it runs <code>chcon -Rt svirt_sandbox_file_t -l s0:c1,c2 /var/db</code>,
+where s0:c1,c2 differs for each container.</p>
+<p>For more info: <a href="https://docs.docker.com/storage/volumes/">https://docs.docker.com/storage/volumes/</a></p>
+<p><strong>e.g.</strong> to run my powershell docker container with a mounted home directory:</p>
+<pre><code>docker run -v /home/ravila/:/home/ravila/:Z -it mcr.microsoft.com/powershell
+</code></pre>
+<h2 id="mapping-network-ports">Mapping Network Ports<a aria-hidden="true" class="anchor-heading icon-link" href="#mapping-network-ports"></a></h2>
+<pre><code>docker run --name mycontainer -p 8080:8080 -p 8000:8000
+</code></pre>
+<h2 id="saving-changes-to-an-image">Saving Changes to an Image<a aria-hidden="true" class="anchor-heading icon-link" href="#saving-changes-to-an-image"></a></h2>
+<p>If you change anything (like install new packages) in the running container and exit the container the changes are not automatically saved. If you want to save them in an image, <strong>use <code>docker commit</code></strong>.</p>
+<h2 id="docker-files">Docker Files<a aria-hidden="true" class="anchor-heading icon-link" href="#docker-files"></a></h2>
+<p>A simple example Dockerfile:</p>
+<pre class="language-docker"><code class="language-docker"><span class="token comment"># Base image</span>
+<span class="token instruction"><span class="token keyword">FROM</span> fedora:latest</span>
+<span class="token instruction"><span class="token keyword">RUN</span> dnf -y update &#x26;&#x26; dnf -y install unzip openssl  &#x26;&#x26; dnf clean all</span>
+<span class="token instruction"><span class="token keyword">COPY</span> UnblockNeteaseMusic-linux-arm7.zip /opt</span>
+<span class="token instruction"><span class="token keyword">RUN</span> unzip /opt/UnblockNeteaseMusic-linux-arm7.zip -d /opt/</span>
+<span class="token instruction"><span class="token keyword">WORKDIR</span> /opt/UnblockNeteaseMusic</span>
+<span class="token instruction"><span class="token keyword">RUN</span>  ./createCertificate.sh</span>
+<span class="token instruction"><span class="token keyword">ENTRYPOINT</span> [<span class="token string">"/opt/UnblockNeteaseMusic/UnblockNeteaseMusic"</span>, <span class="token string">" -b"</span>, <span class="token string">" -e"</span>]</span>
+<span class="token instruction"><span class="token keyword">EXPOSE</span> 443</span>
+</code></pre>
+<p>Docker file reference: <a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a></p>
+<p>Best practices: <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">https://docs.docker.com/develop/develop-images/dockerfile_best-practices/</a></p>
+<h3 id="build-dockerfile">Build Dockerfile<a aria-hidden="true" class="anchor-heading icon-link" href="#build-dockerfile"></a></h3>
+<p>In a directory with a Dockerfile run:</p>
+<p><code>sudo docker build -t "my-image" .</code></p>
+<p>If the build is successful you can see  <code>my-image</code> in docker images output.</p>
+<h2 id="docker-compose">Docker Compose<a aria-hidden="true" class="anchor-heading icon-link" href="#docker-compose"></a></h2>
+<p><a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a></p>
+<p><a href="https://developer.fedoraproject.org/tools/docker/compose.html">https://developer.fedoraproject.org/tools/docker/compose.html</a></p>
+<p>Docker Compose is a tool to orchestrate Docker containers using a simple YAML file which describes your whole setup.</p>
+<p>Installation: <code>sudo dnf install docker-compose</code></p>
+<h3 id="run-a-docker-compose-file">Run a docker compose file<a aria-hidden="true" class="anchor-heading icon-link" href="#run-a-docker-compose-file"></a></h3>
+<p>Create a YAML file: <code>docker-compose.yml</code>, then in the same directory, run:</p>
+<p><code>docker-compose up</code></p>
+<hr>
+<strong>Backlinks</strong>
+<ul>
+<li><a href="/knowledgebase/notes/fg0husctqcykweji6k1bduj">Installation</a></li>
+</ul>

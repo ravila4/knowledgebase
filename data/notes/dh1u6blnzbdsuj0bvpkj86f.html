@@ -1,0 +1,46 @@
+<h1 id="elasticsearch">Elasticsearch<a aria-hidden="true" class="anchor-heading icon-link" href="#elasticsearch"></a></h1>
+<h2 id="api">API<a aria-hidden="true" class="anchor-heading icon-link" href="#api"></a></h2>
+<p>Some examples of common API uses.</p>
+<h3 id="create-index">Create index<a aria-hidden="true" class="anchor-heading icon-link" href="#create-index"></a></h3>
+<p><code>curl -X PUT "localhost:9200/user_genesets?pretty"</code></p>
+<h3 id="delete-index">Delete index<a aria-hidden="true" class="anchor-heading icon-link" href="#delete-index"></a></h3>
+<p><code>curl -X DELETE "localhost:9200/user_genesets?pretty"</code></p>
+<h3 id="set-index-alias">Set index alias<a aria-hidden="true" class="anchor-heading icon-link" href="#set-index-alias"></a></h3>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> -XPOST <span class="token string">'http://localhost:9200/_aliases'</span> -d <span class="token string">'{
+    "actions" : [
+        { "add" : { "index" : "mygeneset_20210323_k1udhp5n",
+          "alias" : "mygeneset_current" } }
+    ]
+}'</span> -H <span class="token string">"Content-Type: application/json"</span>
+</code></pre>
+<h3 id="see-list-of-indices">See list of indices<a aria-hidden="true" class="anchor-heading icon-link" href="#see-list-of-indices"></a></h3>
+<p><code>curl -x GET 'http://localhost:9200/_cat/indices'</code></p>
+<h3 id="search-for-documents">Search for documents<a aria-hidden="true" class="anchor-heading icon-link" href="#search-for-documents"></a></h3>
+<p>In general, we use the endpoint:</p>
+<p><code>curl -X GET "localhost:9200/index/_search"</code></p>
+<p>for example (the parameter 'pretty' requires return type <code>application/json</code>):</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">curl</span> -X GET <span class="token string">"es8.biothings.io:9200/my_index/_search?&#x26;pretty"</span> <span class="token punctuation">\</span>
+-H <span class="token string">'Content-Type: application/json'</span> -d<span class="token string">'
+{
+  "query": {
+    "term": {
+      "source": "smpdb"
+    }
+  }
+}
+'</span>
+</code></pre>
+<h3 id="insert-document">Insert document<a aria-hidden="true" class="anchor-heading icon-link" href="#insert-document"></a></h3>
+<h3 id="modify-document">Modify document<a aria-hidden="true" class="anchor-heading icon-link" href="#modify-document"></a></h3>
+<h3 id="delete-document">Delete document<a aria-hidden="true" class="anchor-heading icon-link" href="#delete-document"></a></h3>
+<hr>
+<strong>Children</strong>
+<ol>
+<li><a href="/knowledgebase/notes/fg0husctqcykweji6k1bduj">Installation</a></li>
+</ol>
+<hr>
+<strong>Backlinks</strong>
+<ul>
+<li><a href="/knowledgebase/notes/leu953eahqsq5wx4rj5daoz">Kibana</a></li>
+<li><a href="/knowledgebase/notes/3g22rduq2yiwiloagst4rx9">Using Biothings SDK with ES8</a></li>
+</ul>

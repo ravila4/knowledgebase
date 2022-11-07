@@ -1,0 +1,125 @@
+<h1 id="scripts">Scripts<a aria-hidden="true" class="anchor-heading icon-link" href="#scripts"></a></h1>
+<p>This document collects basic syntax and best practices for writing
+BASH scripts.</p>
+<h2 id="starting-scripts">Starting scripts<a aria-hidden="true" class="anchor-heading icon-link" href="#starting-scripts"></a></h2>
+<p>It is good practice to start BASH scripts with the following lines:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+
+<span class="token builtin class-name">set</span> -euo pipefail
+</code></pre>
+<h3 id="set">Set<a aria-hidden="true" class="anchor-heading icon-link" href="#set"></a></h3>
+<p>The command <code>set</code> allows you to change shell options. The most useful flags are:</p>
+<p>-e
+: Stop execution when an error is encountered.
+You can "catch" an error to prevent the shell from exiting by appending <code>|| true</code> after a failing command.</p>
+<p>-o pipefail
+: Catch errors in pipes. Return zero exit status only if all commands in a pipeline succeed.</p>
+<p>-u
+: Error out when shell encounters undefined variables by their values.</p>
+<p>-x
+: Debug mode. Prints every line and output, substituting variables</p>
+<p>-f
+: Disable file globbing.</p>
+<h2 id="a-general-template-for-bash-scripts">A general template for BASH scripts<a aria-hidden="true" class="anchor-heading icon-link" href="#a-general-template-for-bash-scripts"></a></h2>
+<p>This template contains the most common boilerplate code for a CLI application:</p>
+<pre class="language-bash"><code class="language-bash">
+```bash
+
+<span class="token comment">#!/usr/bin/env bash</span>
+
+<span class="token builtin class-name">set</span> -Eeuo pipefail
+
+<span class="token builtin class-name">cd</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">dirname</span> <span class="token string">"<span class="token variable">${<span class="token environment constant">BASH_SOURCE</span><span class="token punctuation">[</span>0<span class="token punctuation">]</span>}</span>"</span><span class="token variable">)</span></span>"</span> <span class="token operator">></span>/dev/null <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&#x26;1</span>
+
+<span class="token builtin class-name">trap</span> cleanup SIGINT SIGTERM ERR EXIT
+
+<span class="token function-name function">usage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">cat</span> <span class="token operator">&#x3C;&#x3C;</span><span class="token string">EOF
+Usage: <span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> <span class="token string">"<span class="token variable">$0</span>"</span><span class="token variable">)</span></span> [-h] [-v] [-f] -p param_value arg1 [arg2...]
+Script description here.
+Available options:
+-h, --help      Print this help and exit
+-v, --verbose   Print script debug info
+-f, --flag      Some flag description
+-p, --param     Some param description
+EOF</span>
+  <span class="token builtin class-name">exit</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">cleanup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token builtin class-name">trap</span> - SIGINT SIGTERM ERR EXIT
+  <span class="token comment"># script cleanup here</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">setup_colors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> -t <span class="token number">2</span> <span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&#x26;&#x26;</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> -z <span class="token string">"<span class="token variable">${NO_COLOR-}</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&#x26;&#x26;</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token string">"<span class="token variable">${<span class="token environment constant">TERM</span>-}</span>"</span> <span class="token operator">!=</span> <span class="token string">"dumb"</span> <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">NOCOLOR</span><span class="token operator">=</span><span class="token string">'\033[0m'</span> <span class="token assign-left variable">RED</span><span class="token operator">=</span><span class="token string">'\033[0;31m'</span> <span class="token assign-left variable">GREEN</span><span class="token operator">=</span><span class="token string">'\033[0;32m'</span> <span class="token assign-left variable">ORANGE</span><span class="token operator">=</span><span class="token string">'\033[0;33m'</span> <span class="token assign-left variable">BLUE</span><span class="token operator">=</span><span class="token string">'\033[0;34m'</span> <span class="token assign-left variable">PURPLE</span><span class="token operator">=</span><span class="token string">'\033[0;35m'</span> <span class="token assign-left variable">CYAN</span><span class="token operator">=</span><span class="token string">'\033[0;36m'</span> <span class="token assign-left variable">YELLOW</span><span class="token operator">=</span><span class="token string">'\033[1;33m'</span>
+  <span class="token keyword">else</span>
+    <span class="token assign-left variable">NOCOLOR</span><span class="token operator">=</span><span class="token string">''</span> <span class="token assign-left variable">RED</span><span class="token operator">=</span><span class="token string">''</span> <span class="token assign-left variable">GREEN</span><span class="token operator">=</span><span class="token string">''</span> <span class="token assign-left variable">ORANGE</span><span class="token operator">=</span><span class="token string">''</span> <span class="token assign-left variable">BLUE</span><span class="token operator">=</span><span class="token string">''</span> <span class="token assign-left variable">PURPLE</span><span class="token operator">=</span><span class="token string">''</span> <span class="token assign-left variable">CYAN</span><span class="token operator">=</span><span class="token string">''</span> <span class="token assign-left variable">YELLOW</span><span class="token operator">=</span><span class="token string">''</span>
+  <span class="token keyword">fi</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">msg</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token builtin class-name">echo</span> <span class="token operator">></span><span class="token file-descriptor important">&#x26;2</span> -e <span class="token string">"<span class="token variable">${1-}</span>"</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">die</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token builtin class-name">local</span> <span class="token assign-left variable">msg</span><span class="token operator">=</span><span class="token variable">$1</span>
+  <span class="token builtin class-name">local</span> <span class="token assign-left variable">code</span><span class="token operator">=</span><span class="token variable">${2-1}</span> <span class="token comment"># default exit status 1</span>
+  msg <span class="token string">"<span class="token variable">$msg</span>"</span>
+  <span class="token builtin class-name">exit</span> <span class="token string">"<span class="token variable">$code</span>"</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">parse_params</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment"># default values of variables set from params</span>
+  <span class="token assign-left variable">flag</span><span class="token operator">=</span><span class="token number">0</span>
+  <span class="token assign-left variable">param</span><span class="token operator">=</span><span class="token string">''</span>
+
+  <span class="token keyword">while</span> <span class="token builtin class-name">:</span><span class="token punctuation">;</span> <span class="token keyword">do</span>
+    <span class="token keyword">case</span> <span class="token string">"<span class="token variable">${1-}</span>"</span> <span class="token keyword">in</span>
+    -h <span class="token operator">|</span> --help<span class="token punctuation">)</span>
+      usage
+      <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    -v <span class="token operator">|</span> --verbose<span class="token punctuation">)</span>
+      <span class="token builtin class-name">set</span> -x
+      <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    --no-color<span class="token punctuation">)</span>
+      <span class="token assign-left variable">NO_COLOR</span><span class="token operator">=</span><span class="token number">1</span>
+      <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    -f <span class="token operator">|</span> --flag<span class="token punctuation">)</span> <span class="token comment"># example flag</span>
+      <span class="token assign-left variable">flag</span><span class="token operator">=</span><span class="token number">1</span>
+      <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    -p <span class="token operator">|</span> --param<span class="token punctuation">)</span> <span class="token comment"># example named parameter</span>
+      <span class="token assign-left variable">param</span><span class="token operator">=</span><span class="token string">"<span class="token variable">${2-}</span>"</span>
+      <span class="token builtin class-name">shift</span>
+      <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    -?*<span class="token punctuation">)</span>
+      die <span class="token string">"Unknown option: <span class="token variable">$1</span>"</span>
+      <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    *<span class="token punctuation">)</span>
+      <span class="token builtin class-name">break</span>
+      <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    <span class="token keyword">esac</span>
+    <span class="token builtin class-name">shift</span>
+  <span class="token keyword">done</span>
+
+  <span class="token assign-left variable">args</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token string">"<span class="token variable">$@</span>"</span><span class="token punctuation">)</span>
+
+  <span class="token comment"># check required params and arguments</span>
+  <span class="token punctuation">[</span><span class="token punctuation">[</span> -z <span class="token string">"<span class="token variable">${param-}</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&#x26;&#x26;</span> die <span class="token string">"Missing required parameter: param"</span>
+  <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token variable">${<span class="token operator">#</span>args<span class="token punctuation">[</span>@<span class="token punctuation">]</span>}</span> -eq <span class="token number">0</span> <span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&#x26;&#x26;</span> die <span class="token string">"Missing script arguments"</span>
+
+  <span class="token builtin class-name">return</span> <span class="token number">0</span>
+<span class="token punctuation">}</span>
+
+parse_params <span class="token string">"<span class="token variable">$@</span>"</span>
+setup_colors
+
+<span class="token comment"># script logic here</span>
+
+msg <span class="token string">"<span class="token variable">${RED}</span>Read parameters:<span class="token variable">${NOCOLOR}</span>"</span>
+msg <span class="token string">"- flag: <span class="token variable">${flag}</span>"</span>
+msg <span class="token string">"- param: <span class="token variable">${param}</span>"</span>
+msg <span class="token string">"- arguments: <span class="token variable">${args<span class="token punctuation">[</span>*<span class="token punctuation">]</span>-}</span>"</span>
+
+</code></pre>

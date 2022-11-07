@@ -1,0 +1,89 @@
+<h1 id="2022-03-24">2022-03-24<a aria-hidden="true" class="anchor-heading icon-link" href="#2022-03-24"></a></h1>
+<h2 id="11-meeting">1:1 meeting<a aria-hidden="true" class="anchor-heading icon-link" href="#11-meeting"></a></h2>
+<h3 id="mychem-paper">MyChem paper<a aria-hidden="true" class="anchor-heading icon-link" href="#mychem-paper"></a></h3>
+<ul>
+<li>Difference to existing APIs
+<ul>
+<li>integration</li>
+<li>data object</li>
+<li>performance</li>
+<li>typical use cases</li>
+</ul>
+</li>
+<li>Proving API performance
+<ul>
+<li>Perform load tests &#x26; collect statistics</li>
+</ul>
+</li>
+<li>Proving integration</li>
+<li>Look for similar existing projects
+<ul>
+<li>Chemspider?</li>
+<li>Pharos?</li>
+</ul>
+</li>
+<li>Use case studies:
+<ul>
+<li>Problem: Chemicals don't have a single authoritative identifier.</li>
+<li>Look for papers that do data integration from different chemical databases, and try to reproduce using MyChem queries.</li>
+<li>Translator knowledge integration use cases.</li>
+</ul>
+</li>
+<li>New features:
+<ul>
+<li>Separate search for drugs/compounds:
+<ul>
+<li>Configure endpoints:
+<ul>
+<li>/drug</li>
+<li>/compound</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CURIE based ID annotation searching:
+<ul>
+<li>CURIE providers:
+<ul>
+<li>BioLink model</li>
+<li>identifiers.org</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="es8-testing--new-features">ES8 testing &#x26; new features<a aria-hidden="true" class="anchor-heading icon-link" href="#es8-testing--new-features"></a></h3>
+<ul>
+<li>set up SSH access to su07</li>
+<li>build new ES8 docker image</li>
+<li>test mychem indexing</li>
+</ul>
+<h3 id="auth-4-biothings">Auth 4 Biothings<a aria-hidden="true" class="anchor-heading icon-link" href="#auth-4-biothings"></a></h3>
+<ul>
+<li>research HMAC</li>
+<li>research authentication method for AWS API:
+<ul>
+<li>client_id, client_secret passed from headers</li>
+</ul>
+</li>
+<li>PSQL storage tentative fields:
+<ul>
+<li>client_profile: username, email, ip, client_id, client_secret</li>
+<li>client_requests: client_id, api, endpoint, method, count</li>
+</ul>
+</li>
+</ul>
+<h3 id="mygeneset">MyGeneset<a aria-hidden="true" class="anchor-heading icon-link" href="#mygeneset"></a></h3>
+<ul>
+<li>Email Greene Lab</li>
+</ul>
+<hr>
+<h2 id="tags">Tags<a aria-hidden="true" class="anchor-heading icon-link" href="#tags"></a></h2>
+<ol>
+<li><a title="Private" href="https://wiki.dendron.so/notes/hfyvYGJZQiUwQaaxQO27q.html" target="_blank" class="private">meetings.1on1 (Private)</a></li>
+<li><a class="color-tag" style="--tag-color: #fe01b1;" href="/knowledgebase/notes/vm75dwxqvl6hov19p9lexz0">biothings.mychem</a></li>
+<li><a class="color-tag" style="--tag-color: #2000b1;" href="/knowledgebase/notes/3itb7ks464cem5nnu377zie">biothings.auth</a></li>
+<li><a class="color-tag" style="--tag-color: #ffffcb;" href="/knowledgebase/notes/q6vugb61pqwxkq5yfzt4ncg">biothings.mychem.paper</a></li>
+</ol>

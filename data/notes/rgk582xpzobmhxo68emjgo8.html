@@ -1,0 +1,90 @@
+<h1 id="mongodb">MongoDB<a aria-hidden="true" class="anchor-heading icon-link" href="#mongodb"></a></h1>
+<h2 id="installation">Installation<a aria-hidden="true" class="anchor-heading icon-link" href="#installation"></a></h2>
+<h3 id="docker">Docker:<a aria-hidden="true" class="anchor-heading icon-link" href="#docker"></a></h3>
+<p><code>docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:latest</code></p>
+<h2 id="common-navigation-commands">Common navigation commands<a aria-hidden="true" class="anchor-heading icon-link" href="#common-navigation-commands"></a></h2>
+<p>Use mongo CLI to connect to host:</p>
+<pre><code>mongo "mongodb://hostname_or_ip:port"
+</code></pre>
+<p>List databases</p>
+<blockquote>
+<p><code>show dbs</code></p>
+</blockquote>
+<p>Select database</p>
+<blockquote>
+<p><code>use &#x3C;database_name></code></p>
+</blockquote>
+<p>List collections</p>
+<blockquote>
+<p><code>show collections</code></p>
+</blockquote>
+<p>Get number of documents in collection</p>
+<blockquote>
+<p><code>db.collection.count()</code></p>
+</blockquote>
+<p>Get example document from a collection</p>
+<blockquote>
+<p><code>db.collection.findOne()</code></p>
+</blockquote>
+<h2 id="searching">Searching<a aria-hidden="true" class="anchor-heading icon-link" href="#searching"></a></h2>
+<p>Search by attribute:</p>
+<pre><code>db.collection.find({'field': 'value'})
+</code></pre>
+<p>Find documents with field:</p>
+<pre><code>db.collection.find({'field': {$exists: true}})
+</code></pre>
+<p>Special operators for filters:</p>
+<ul>
+<li><code>$exists</code></li>
+<li><code>$gt</code>, <code>$gte</code>, <code>$lt</code>, <code>$lte</code></li>
+<li><code>$type</code></li>
+<li><code>$and: [{expr}, {expr}]</code></li>
+<li><code>$eq</code></li>
+</ul>
+<p>Iterate through search results:</p>
+<pre><code>myCursor = db.collection.find({'field': 'value'});
+myCursor.count();
+while (myCursor.hasNext()){
+    print(tojson(myCursor.next()));
+}
+</code></pre>
+<p>Limit to top <code>n</code> results:</p>
+<p><code>.limit()</code></p>
+<h2 id="indexing">Indexing<a aria-hidden="true" class="anchor-heading icon-link" href="#indexing"></a></h2>
+<h3 id="create-an-index-from-a-collection">Create an index from a collection<a aria-hidden="true" class="anchor-heading icon-link" href="#create-an-index-from-a-collection"></a></h3>
+<p>Hash-based sharding. Supports equality matches, but not range-based queries.</p>
+<p><code>db.chembl.createIndex({'chembl.inchi': 'hashed'})</code></p>
+<p>Ascending index:</p>
+<p><code>db.chembl.createIndex({'chembl.inchi': 1})</code></p>
+<h2 id="updating-documents">Updating documents<a aria-hidden="true" class="anchor-heading icon-link" href="#updating-documents"></a></h2>
+<p>Update single document:</p>
+<p><code>db.collections.update({'_id': 'value'}, {update})</code></p>
+<p>Update multiple documents:</p>
+<p><code>db.collection.updateMany({filter}, {update})</code></p>
+<p>For modifiacations on specific attributes, use <code>$set</code> operator:</p>
+<p><code>{$set: {'field': 'new_value'}}</code></p>
+<h2 id="inserting-new-documents">Inserting new documents<a aria-hidden="true" class="anchor-heading icon-link" href="#inserting-new-documents"></a></h2>
+<p>Insert single document to a collection:</p>
+<p><code>db.collection.insert({doc})</code></p>
+<h2 id="delete-a-collection">Delete a collection<a aria-hidden="true" class="anchor-heading icon-link" href="#delete-a-collection"></a></h2>
+<p><code>db.collection.drop()</code></p>
+<h2 id="rename-a-collection">Rename a collection<a aria-hidden="true" class="anchor-heading icon-link" href="#rename-a-collection"></a></h2>
+<p><code>db.collection.renameCollection("new_name")</code></p>
+<h2 id="clone-a-collection">Clone a collection<a aria-hidden="true" class="anchor-heading icon-link" href="#clone-a-collection"></a></h2>
+<p><code>db.collection1.aggregate([{ $match: {} }, { $out: "collection2" }])</code></p>
+<h2 id="dumping-and-restoring-a-collection">Dumping and restoring a collection<a aria-hidden="true" class="anchor-heading icon-link" href="#dumping-and-restoring-a-collection"></a></h2>
+<p>This requires installing the mongodb <a href="https://www.mongodb.com/try/download/database-tools?tck=docs_databasetools">database tools package</a>.</p>
+<pre><code>mongodump --db=&#x3C;old_db_name> --collection=&#x3C;collection_name> --out=data/
+
+mongorestore --db=&#x3C;new_db_name> \
+  --collection=&#x3C;collection_name> data/&#x3C;db_name>/&#x3C;collection_name>.bson
+</code></pre>
+<h2 id="conditionals">Conditionals<a aria-hidden="true" class="anchor-heading icon-link" href="#conditionals"></a></h2>
+<h3 id="javascript-conditionals">Javascript conditionals<a aria-hidden="true" class="anchor-heading icon-link" href="#javascript-conditionals"></a></h3>
+<pre class="language-js"><code class="language-js"><span class="token keyword control-flow">if</span><span class="token punctuation">(</span><span class="token punctuation">{</span>condition<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// code</span>
+<span class="token punctuation">}</span>
+<span class="token keyword control-flow">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">//code</span>
+<span class="token punctuation">}</span>
+</code></pre>

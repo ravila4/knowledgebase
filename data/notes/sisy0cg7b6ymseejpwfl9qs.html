@@ -1,0 +1,58 @@
+<h1 id="2022-03-28">2022-03-28<a aria-hidden="true" class="anchor-heading icon-link" href="#2022-03-28"></a></h1>
+<p>To Do:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" checked disabled> Fix 🐛: SmartAPI Cookie
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" checked disabled> Find out whether the issue is present in Discovery app</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> Difference w/ discovery app</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> Fix 🐛: SmartAPI data not displayed in UI</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> ES8 testing on MyChem.info
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" checked disabled> Create index</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> Run tests
+<ul>
+<li>Local failing. <code>"Error setting up ES for tests"</code></li>
+<li>Remote: passing ✅</li>
+</ul>
+</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> Fix ES tests</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> Test with 0.11.x branch</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> Test snapshot/restore</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> Test with updated Python packages</li>
+<li class="task-list-item"><input type="checkbox" checked disabled> Test access to ES8 with certificates enabled</li>
+</ul>
+</li>
+</ul>
+<h2 id="-bug-error-setting-up-es-for-tests">🐛 Bug: Error setting up ES for tests<a aria-hidden="true" class="anchor-heading icon-link" href="#-bug-error-setting-up-es-for-tests"></a></h2>
+<p>Error results from a request to the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html#docs-bulk">Bulk API endpoint</a>
+in <a href="https://github.com/biothings/biothings.api/blob/052d2b3ae84810f345df86e185ea18e730756e99/biothings/tests/web.py#L292-L294">this line</a>.</p>
+<p><code>400 Client Error: Bad Request for url: http://localhost:9200/mychem_test/_doc/_bulk</code></p>
+<blockquote>
+<p>From ES8.0, you cannot add new documents to a data stream using the <code>PUT /&#x3C;target>/_doc/&#x3C;_id></code> request format. To specify a document ID, use the <code>PUT /&#x3C;target>/_create/&#x3C;_id></code> format instead.</p>
+</blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.1/docs-index_.html#docs-index">https://www.elastic.co/guide/en/elasticsearch/reference/8.1/docs-index_.html#docs-index</a>_</p>
+<p>Exampeles with the bulk API:</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/use-a-data-stream.html#add-documents-to-a-data-stream">https://www.elastic.co/guide/en/elasticsearch/reference/current/use-a-data-stream.html#add-documents-to-a-data-stream</a></p>
+<pre><code>PUT /my-data-stream/_bulk?refresh
+{"create":{ }}
+{ "@timestamp": "2099-03-08T11:04:05.000Z", "user": { "id": "vlb44hny" }, "message": "Login attempt failed" }
+{"create":{ }}
+{ "@timestamp": "2099-03-08T11:06:07.000Z", "user": { "id": "8a4f500d" }, "message": "Login successful" }
+{"create":{ }}
+{ "@timestamp": "2099-03-09T11:07:08.000Z", "user": { "id": "l7gk7f82" },
+</code></pre>
+<blockquote>
+<p>To delete or update multiple documents with a single request, use the bulk API's delete, index, and update actions.</p>
+</blockquote>
+<pre><code>PUT /_bulk?refresh
+{ "index": { "_index": ".ds-my-data-stream-2099.03.08-000003", "_id": "bfspvnIBr7VVZlfp2lqX", "if_seq_no": 0, "if_primary_term": 1 } }
+{ "@timestamp": "2099-03-08T11:06:07.000Z", "user": { "id": "8a4f500d" }, "message": "Login successful" }
+</code></pre>
+<hr>
+<h2 id="tags">Tags<a aria-hidden="true" class="anchor-heading icon-link" href="#tags"></a></h2>
+<ol>
+<li><a class="color-tag" style="--tag-color: #fff39a;" href="/knowledgebase/notes/310u01cu9vysy5y3lyds6qr">smartapi</a></li>
+<li><a class="color-tag" style="--tag-color: #c4a661;" href="/knowledgebase/notes/7xl658uu11ehk96eqzlr4e5">es8</a></li>
+</ol>

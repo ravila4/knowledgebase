@@ -1,0 +1,30 @@
+<h1 id="kibana">Kibana<a aria-hidden="true" class="anchor-heading icon-link" href="#kibana"></a></h1>
+<p>Kibana is a user interface that provides search and data visualization for data indexed in Elasticsearch, as well as management tools for an Elasticsearch cluster.</p>
+<h2 id="installation">Installation<a aria-hidden="true" class="anchor-heading icon-link" href="#installation"></a></h2>
+<p>For a local Docker installation, we use the same docker-compose as Elasticsearch:</p>
+<p></p><p></p><div class="portal-container">
+<div class="portal-head">
+<div class="portal-backlink">
+<div class="portal-title">From <span class="portal-text-title">Elasticsearch</span></div>
+<a href="/knowledgebase/notes/dh1u6blnzbdsuj0bvpkj86f" class="portal-arrow">Go to text <span class="right-arrow">→</span></a>
+</div>
+</div>
+<div id="portal-parent-anchor" class="portal-parent" markdown="1">
+<div class="portal-parent-fader-top"></div>
+<div class="portal-parent-fader-bottom"></div><p>Start anchor disabling-elasticsearch-security-settings not found</p>
+</div></div><p></p><p></p>
+<p>However, we add a service for Kibana. The benefit is that services in the same docker-compose file use the same virtual network, so they should discover and able to speak to each other out of the box. (No need to worry about the enrollment token and all that.)</p>
+<p>The Kibana service looks like this:</p>
+<pre class="language-yml"><code class="language-yml"><span class="token key atrule">kibana</span><span class="token punctuation">:</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> kibana_8.1
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> docker.elastic.co/kibana/kibana<span class="token punctuation">:</span>8.1.0
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 5601<span class="token punctuation">:</span><span class="token number">5601</span>
+</code></pre>
+<h2 id="using-kibana">Using Kibana<a aria-hidden="true" class="anchor-heading icon-link" href="#using-kibana"></a></h2>
+<h3 id="index-management">Index Management<a aria-hidden="true" class="anchor-heading icon-link" href="#index-management"></a></h3>
+<p>Useful for checking index status and configs.</p>
+<p><a href="http://localhost:5601/app/management/data/index_management/indices">http://localhost:5601/app/management/data/index_management/indices</a></p>
+<h3 id="dev-tools">Dev tools<a aria-hidden="true" class="anchor-heading icon-link" href="#dev-tools"></a></h3>
+<p>Useful for sending custom queries.</p>
+<p><a href="http://localhost:5601/app/dev_tools#/console">http://localhost:5601/app/dev_tools#/console</a></p>

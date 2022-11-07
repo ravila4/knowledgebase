@@ -1,0 +1,183 @@
+<h1 id="vs-code">VS Code<a aria-hidden="true" class="anchor-heading icon-link" href="#vs-code"></a></h1>
+<p>How to do some useful things with VS Code.</p>
+<h2 id="useful-keyboard-shortcuts">Useful keyboard shortcuts<a aria-hidden="true" class="anchor-heading icon-link" href="#useful-keyboard-shortcuts"></a></h2>
+<h3 id="vim-extension-shortcuts">Vim extension shortcuts:<a aria-hidden="true" class="anchor-heading icon-link" href="#vim-extension-shortcuts"></a></h3>
+<div class="table-responsive">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Shortcut</th><th>Description</th></tr></thead><tbody><tr><td><code>gh</code></td><td>Show type of the symbol under the cursor</td></tr><tr><td><code>gd</code></td><td>Go to definition of the symbol under the cursor</td></tr></tbody></table></div>
+<h3 id="vscode-shortcuts">VSCode shortcuts:<a aria-hidden="true" class="anchor-heading icon-link" href="#vscode-shortcuts"></a></h3>
+<div class="table-responsive">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Shortcut</th><th>Description</th></tr></thead><tbody><tr><td><code>Ctrl + Shift + N</code></td><td>New empty window</td></tr><tr><td><code>Alt + Shift + P</code></td><td>Open recent projects</td></tr><tr><td><code>Alt + ↓↑</code></td><td>Move the current line up or down.</td></tr><tr><td><code>F2</code></td><td>Rename the current symbol</td></tr></tbody></table></div>
+<h2 id="debugging">Debugging<a aria-hidden="true" class="anchor-heading icon-link" href="#debugging"></a></h2>
+<p>To setup custom debugging, edit the project;s <code>.vscode/launch.json</code> file.</p>
+<h3 id="debug-a-python-module">Debug a python module<a aria-hidden="true" class="anchor-heading icon-link" href="#debug-a-python-module"></a></h3>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.2.0"</span><span class="token punctuation">,</span>
+    <span class="token property">"configurations"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Python: Module"</span><span class="token punctuation">,</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"python"</span><span class="token punctuation">,</span>
+            <span class="token property">"request"</span><span class="token operator">:</span> <span class="token string">"launch"</span><span class="token punctuation">,</span>
+            <span class="token property">"module"</span><span class="token operator">:</span> <span class="token string">"myproject.module_name"</span><span class="token punctuation">,</span>
+            <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token string">"arg1"</span><span class="token punctuation">,</span>
+                <span class="token string">"arg2"</span>
+            <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"console"</span><span class="token operator">:</span> <span class="token string">"integratedTerminal"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="debug-with-a-custom-bash-command">Debug with a custom bash command<a aria-hidden="true" class="anchor-heading icon-link" href="#debug-with-a-custom-bash-command"></a></h3>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.2.0"</span><span class="token punctuation">,</span>
+    <span class="token property">"configurations"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Bash: Command"</span><span class="token punctuation">,</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
+            <span class="token property">"request"</span><span class="token operator">:</span> <span class="token string">"launch"</span><span class="token punctuation">,</span>
+            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"your_command"</span><span class="token punctuation">,</span>
+            <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token string">"arg1"</span><span class="token punctuation">,</span>
+                <span class="token string">"arg2"</span>
+            <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"console"</span><span class="token operator">:</span> <span class="token string">"integratedTerminal"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Example from mygeneset.info's debug environment:</p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.2.0"</span><span class="token punctuation">,</span>
+    <span class="token property">"configurations"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+        <span class="token punctuation">{</span>
+            <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Web Component"</span><span class="token punctuation">,</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"python"</span><span class="token punctuation">,</span>
+            <span class="token property">"request"</span><span class="token operator">:</span> <span class="token string">"launch"</span><span class="token punctuation">,</span>
+            <span class="token property">"program"</span><span class="token operator">:</span> <span class="token string">"index.py"</span><span class="token punctuation">,</span>
+            <span class="token property">"console"</span><span class="token operator">:</span> <span class="token string">"integratedTerminal"</span><span class="token punctuation">,</span>
+            <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token string">"--debug"</span>
+            <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"cwd"</span><span class="token operator">:</span> <span class="token string">"${workspaceFolder}/src"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Hub"</span><span class="token punctuation">,</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"python"</span><span class="token punctuation">,</span>
+            <span class="token property">"request"</span><span class="token operator">:</span> <span class="token string">"launch"</span><span class="token punctuation">,</span>
+            <span class="token property">"module"</span><span class="token operator">:</span> <span class="token string">"bin.hub"</span><span class="token punctuation">,</span>
+            <span class="token property">"console"</span><span class="token operator">:</span> <span class="token string">"integratedTerminal"</span><span class="token punctuation">,</span>
+            <span class="token property">"cwd"</span><span class="token operator">:</span> <span class="token string">"${workspaceFolder}/src"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Current File"</span><span class="token punctuation">,</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"python"</span><span class="token punctuation">,</span>
+            <span class="token property">"request"</span><span class="token operator">:</span> <span class="token string">"launch"</span><span class="token punctuation">,</span>
+            <span class="token property">"program"</span><span class="token operator">:</span> <span class="token string">"${file}"</span><span class="token punctuation">,</span>
+            <span class="token property">"console"</span><span class="token operator">:</span> <span class="token string">"integratedTerminal"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="testing">Testing<a aria-hidden="true" class="anchor-heading icon-link" href="#testing"></a></h2>
+<h3 id="configuring-testing">Configuring testing<a aria-hidden="true" class="anchor-heading icon-link" href="#configuring-testing"></a></h3>
+<p>Add to workspace settings.json:</p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"python.testing.autoTestDiscoverOnSaveEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"python.testing.pytestEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"python.testing.pytestPath"</span><span class="token operator">:</span> <span class="token string">"pytest"</span>
+    <span class="token property">"python.testing.pytestArgs"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"path/to/test/dir"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="technical-issues">Technical Issues<a aria-hidden="true" class="anchor-heading icon-link" href="#technical-issues"></a></h2>
+<h3 id="fedora-installation">Fedora installation<a aria-hidden="true" class="anchor-heading icon-link" href="#fedora-installation"></a></h3>
+<p>To install without using flatpak:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">rpm</span> --import https://packages.microsoft.com/keys/microsoft.asc
+
+<span class="token function">cat</span> <span class="token operator">&#x3C;&#x3C;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/yum.repos.d/vscode.repo</span>
+[code]
+name=Visual Studio Code
+baseurl=https://packages.microsoft.com/yumrepos/vscode
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+EOF</span>
+</code></pre>
+<h3 id="escaping-the-flatpak-sandbox">Escaping the Flatpak sandbox<a aria-hidden="true" class="anchor-heading icon-link" href="#escaping-the-flatpak-sandbox"></a></h3>
+<p>Flatpak installations start a sandboxed shell that doesn't have access to the host's system packages.</p>
+<p>To fix this, I originally used <code>flatpak-spawn</code> to start a shell. The settings under <code>terminal.integrated.profiles.linux</code> are:</p>
+<pre class="language-json"><code class="language-json">    <span class="token property">"Host: Bash (new pty)"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/usr/bin/flatpak-spawn"</span><span class="token punctuation">,</span>
+        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"--env=TERM=vscode"</span><span class="token punctuation">,</span>
+            <span class="token string">"--host"</span><span class="token punctuation">,</span>
+            <span class="token string">"script"</span><span class="token punctuation">,</span>
+            <span class="token string">"--quiet"</span><span class="token punctuation">,</span>
+            <span class="token string">"/dev/null"</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"Host: ZSH (new pty)"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/usr/bin/flatpak-spawn"</span><span class="token punctuation">,</span>
+        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"--env=TERM=vscode"</span><span class="token punctuation">,</span>
+            <span class="token string">"--env=SHELL=zsh"</span><span class="token punctuation">,</span>
+            <span class="token string">"--host"</span><span class="token punctuation">,</span>
+            <span class="token string">"script"</span><span class="token punctuation">,</span>
+            <span class="token string">"--quiet"</span><span class="token punctuation">,</span>
+            <span class="token string">"/dev/null"</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>A better solution was to use 'host-spawn`: <a href="https://github.com/1player/host-spawn">https://github.com/1player/host-spawn</a> to start a shell:</p>
+<pre class="language-json"><code class="language-json">
+<span class="token property">"terminal.integrated.profiles.linux"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"Host: Bash (host-spawn)"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/home/ravila/.local/bin/host-spawn"</span><span class="token punctuation">,</span>
+        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"bash"</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>

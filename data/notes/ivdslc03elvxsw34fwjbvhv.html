@@ -1,0 +1,45 @@
+<h1 id="evalues">Evalues<a aria-hidden="true" class="anchor-heading icon-link" href="#evalues"></a></h1>
+<h2 id="e-value">E-value<a aria-hidden="true" class="anchor-heading icon-link" href="#e-value"></a></h2>
+<p>The BLAST E-value is the number of expected hits of similar quality (score) that could be found just by chance.</p>
+<p>E-value of 10 means that up to 10 hits can be expected to be found just by chance, given the same size of a random database.</p>
+<p>E-value can be used as a first quality filter for the BLAST search result, to obtain only results equal to or better than the number given by the <code>-evalue</code> option. Blast results are sorted by E-value by default (best hit in first line).</p>
+<pre><code>blastn -query genes.ffn -subject genome.fna -evalue 1e-10
+</code></pre>
+<p>The smaller the E-value, the better the match. Here is a rule of thumb:</p>
+<p><code>-evalue 1e-50</code>
+: small E-value: low number of hits, but of high quality. Blast hits with an E-value smaller than 1e-50 includes database matches of very high quality.</p>
+<p><code>-evalue 0.01</code>
+: Blast hits with E-value smaller than 0.01 can still be considered as good hit for homology matches.</p>
+<p><code>-evalue 10 (default)</code>
+: Large E-value: many hits, partly of low quality</p>
+<p>E-value smaller than 10 will include hits that cannot be considered as significant, but may give an idea of potential relations.</p>
+<p>The E-value (expectation value) is a corrected bit-score adjusted to the sequence database size. The E-value therefore depends on the size of the used sequence database. Since large databases increase the chance of false positive hits, the E-value corrects for the higher chance. It's a correction for multiple comparisons. This means that a sequence hit would get a better E-value when present in a smaller database.</p>
+<p><span class="math math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mi>m</mi><mo>⋅</mo><mi>n</mi><mi mathvariant="normal">/</mi><msup><mn>2</mn><mrow><mi>b</mi><mi>i</mi><mi>t</mi><mo>−</mo><mi>s</mi><mi>c</mi><mi>o</mi><mi>r</mi><mi>e</mi></mrow></msup></mrow><annotation encoding="application/x-tex">E = m \cdot n / 2^{bit-score}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4445em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0991em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">bi</span><span class="mord mathnormal mtight">t</span><span class="mbin mtight">−</span><span class="mord mathnormal mtight">score</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p> <span class="math math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span></span> - query sequence length</p>
+<p> <span class="math math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> - total database length (sum of all sequences)</p>
+<h2 id="bit-score">Bit-score<a aria-hidden="true" class="anchor-heading icon-link" href="#bit-score"></a></h2>
+<blockquote>
+<p>The higher the bit-score, the better the sequence similarity</p>
+</blockquote>
+<blockquote>
+<p>The bit-score is the required size of a sequence database in which the current match could be found just by chance. The bit-score is a log2 scaled and normalized raw-score. Each increase by one doubles the required database size (2bit-score).</p>
+</blockquote>
+<blockquote>
+<p>Bit-score does not depend on database size. The bit-score gives the same value for hits in databases of different sizes and hence can be used for searching in an constantly increasing database.</p>
+</blockquote>
+<p>From <a href="http://www.metagenomics.wiki/tools/blast/evalue">http://www.metagenomics.wiki/tools/blast/evalue</a></p>
+<hr>
+<blockquote>
+<p>The E-value provides information about the likelihood that a given sequence match is purely by chance. The lower the E-value, the less likely the database match is a result of random chance and therefore the more significant the match is. Empirical interpretation of the E-value is as follows. If E &#x3C; 1e - 50 (or 1 × 10-50), there should be an extremely high confidence that the database match is a result of homologous relationships. If E is between 0.01 and 1e - 50, the match can be considered a result of homology. If E is between 0.01 and 10, the match is considered not significant, but may hint at a tentative remote homology relationship. Additional evidence is needed to confirm the tentative relationship. If E > 10, the sequences under consideration are either unrelated or related by extremely distant relationships that fall below the limit of detection with the current method. Because the E-value is proportionally affected by the database size, an obvious problem is that as the database grows, the E-value for a given sequence match also increases.</p>
+</blockquote>
+<blockquote>
+<p>A bit score is another prominent statistical indicator used in addition to the Evalue in a BLAST output. The bit score measures sequence similarity independent of query sequence length and database size and is normalized based on the rawpairwise alignment score. The bit score (S) is determined by the following formula: S = (λ × S − lnK)/ ln2 where λ is the Gumble distribution constant, S is the raw alignment score, and K is a constant associated with the scoring matrix used. Clearly, the bit score (S) is linearly related to the rawalignment score (S). Thus, the higher the bit score, the more highly significant the match is. The bit score provides a constant statistical indicator for searching different databases of different sizes or for searching the same database at different times as the database enlarges.</p>
+</blockquote>
+<p>From <a href="https://www.biostars.org/p/187230/">https://www.biostars.org/p/187230/</a></p>
+<hr>
+<p><strong>Relevant article:
+</strong><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3820096/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3820096/</a></p>
+<blockquote>
+<p>The bit-score provides a better rule-of-thumb for inferring homology. For average length proteins, a bit score of 50 is almost always significant. A bit score of 40 is only significant (E() &#x3C; 0.001) in searches of protein databases with fewer than 7000 entries. Increasing the score by 10 b</p>
+</blockquote>
+<p>From <a href="https://www.biostars.org/p/187230/">https://www.biostars.org/p/187230/</a></p>

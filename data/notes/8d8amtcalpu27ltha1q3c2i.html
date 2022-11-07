@@ -1,0 +1,130 @@
+<h1 id="higher-order-functions">Higher-Order Functions<a aria-hidden="true" class="anchor-heading icon-link" href="#higher-order-functions"></a></h1>
+<p>Higher-order functions are functions that take other functions as input and return functions as output.</p>
+<p>Some examples of built-in higher-order function in Python include:  <code>map()</code>, <code>filter()</code>, and <code>reduce()</code>.</p>
+<p>The <code>functools</code> module in Python also provides built-in higher-order functions and operations for working with them.</p>
+<h2 id="higher-order-functions-and-decorators">Higher-order functions and decorators<a aria-hidden="true" class="anchor-heading icon-link" href="#higher-order-functions-and-decorators"></a></h2>
+<p>Decorators are a type of higher-order function that extends the functionality of a given function.</p>
+<p>Let's start with a simple decorator example. In this simplest case let's decorate a function that takes no arguments:</p>
+<pre class="language-python"><code class="language-python"><span class="token comment"># This is a regular function</span>
+<span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Hello world"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># This is a decorator function:</span>
+<span class="token keyword">def</span> <span class="token function">goodbye</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">inner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        func<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"Goodbye world!"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> inner
+</code></pre>
+<p>The common pattern of decorator functions is that they contain an inner and an outer function. The job ouf the outer function is simply to return the inner function. The inner function calls and extends the input function.</p>
+<p>When we pass the <code>hello</code> function to the <code>goodbye</code> function, we get a new function:</p>
+<pre class="language-python"><code class="language-python">hello_goodbye <span class="token operator">=</span> goodbye<span class="token punctuation">(</span>hello<span class="token punctuation">)</span>
+hello_goodbye<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> Hello world
+<span class="token operator">>></span><span class="token operator">></span> Goodbye world!
+</code></pre>
+<p>The next step up in terms of complexity is adding arguments to the inner function:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">greet</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Hello, </span><span class="token interpolation"><span class="token punctuation">{</span>name<span class="token punctuation">}</span></span><span class="token string">!"</span></span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">decorate</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">inner</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        func<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"It's nice to meet you!"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> inner
+
+decorate<span class="token punctuation">(</span>greet<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token string">"Ricardo"</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> Hello<span class="token punctuation">,</span> Ricardo!
+<span class="token operator">>></span><span class="token operator">></span> It's nice to meet you!
+</code></pre>
+<p>That's not too hard! Notice that the syntax <code>decorate(greet)("Ricardo")</code> sends the string "Ricardo" to the inner function of the <code>decorate</code> function.</p>
+<p>Finally we can add some syntactic sugar to our decorators by using Python's <code>@</code> operator. In this case, if we wanted to decorate the function <code>greet</code> above, we could write it like this:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">goodbye</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">inner</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        func<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Goodbye, </span><span class="token interpolation"><span class="token punctuation">{</span>name<span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> inner
+
+<span class="token decorator annotation punctuation">@goodbye</span>
+<span class="token keyword">def</span> <span class="token function">greet</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Hello, </span><span class="token interpolation"><span class="token punctuation">{</span>name<span class="token punctuation">}</span></span><span class="token string">!"</span></span><span class="token punctuation">)</span>
+
+greet<span class="token punctuation">(</span><span class="token string">"Ricardo"</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> Hello<span class="token punctuation">,</span> Ricardo!
+<span class="token operator">>></span><span class="token operator">></span> Goodbye<span class="token punctuation">,</span> Ricardo
+</code></pre>
+<p>As you can see, <code>@goodbye</code> essentially modifies the function to return the output of <code>goodbye(greet)</code>.</p>
+<p>That is basically all there is to know about decorators!</p>
+<h2 id="partial-functions">Partial functions<a aria-hidden="true" class="anchor-heading icon-link" href="#partial-functions"></a></h2>
+<p>Partial functions are a type of higher-order function that extends functions by pre-defining part of their arguments.</p>
+<p>Let's say we have a function that takes two numeric arguments and sums them together:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">sum</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> a <span class="token operator">+</span> b
+
+<span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">3</span>
+</code></pre>
+<p>Now lets say we want to create a new version of this fuction where the argument <code>a</code> is a fixed value, say <code>5</code> , and we only need to input the argument <code>b</code>.</p>
+<p>The <code>functools</code> module provides an easy way to do this:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">from</span> functools <span class="token keyword">import</span> partial
+
+sum_five <span class="token operator">=</span> partial<span class="token punctuation">(</span><span class="token builtin">sum</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span>
+sum_five<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>  <span class="token comment"># Sums 2 + 5</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">7</span>
+</code></pre>
+<p>The function <code>partial</code> takes a function as its first argument, and passes the rest of its arguments to that function. It returns a new function with a lower number of inputs. To learn how it does this, we can actually implement <code>partial</code> ourselves using decorators! We also need to learn about the special <code>*args</code> and <code>**kwargs</code> parameters.</p>
+<p>Let's start by implementing the sample above from scratch:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">input_five</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">inner</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> func<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> inner
+
+<span class="token keyword">def</span> <span class="token function">sum</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> a <span class="token operator">+</span> b
+
+sum_five <span class="token operator">=</span> input_five<span class="token punctuation">(</span><span class="token builtin">sum</span><span class="token punctuation">)</span>
+sum_five<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">9</span>
+</code></pre>
+<p>As you can see, decorators can be used to create partial functions!
+Of course, we could have used the decorator syntax <code>@input_five</code>, but I wanted to drive home the point that <code>sum_five</code> is a new function that takes less arguments than <code>sum</code>.</p>
+<h2 id="variable-arguments">Variable arguments<a aria-hidden="true" class="anchor-heading icon-link" href="#variable-arguments"></a></h2>
+<p>The only issue with the implementation above is that sometimes you don't know how many arguments the input function will have. Say we instead passed a function that sums three numbers the function <code>input_five</code> above, in this case it will fail, because <code>func</code> will expect three arguments instead of two.</p>
+<p>To solve this we can use the special parameter <code>*args</code>. <code>*args</code> is a function parameter that catches any arbitrary number of <strong>un-named</strong> input parameters as a list. Note that <code>args</code> is just a variable name (by convention we use the name <code>args</code> or <code>argv</code>), and <code>*</code> is the important part of this parameter. It is the operator <code>*</code> that denotes packing the input arguments into an iterable and assigning them to the variable that follows it.</p>
+<p>A simple function using <code>*args</code>:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">print_all_arguments</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> arg <span class="token keyword">in</span> args<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span>
+
+print_all_arguments<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">1</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">2</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">3</span>
+</code></pre>
+<p>From this, you can proably get an idea of how this is useful for building decorators that can be applied across functions with varying number of arguments.
+Here is the same partial function decorator using <code>*args</code>:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">input_five</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">inner</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> func<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> inner
+
+<span class="token keyword">def</span> <span class="token function">sum</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> a <span class="token operator">+</span> b <span class="token operator">+</span> c <span class="token operator">+</span>d
+
+sum_five <span class="token operator">=</span> input_five<span class="token punctuation">(</span><span class="token builtin">sum</span><span class="token punctuation">)</span>
+sum_five<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">116</span>
+</code></pre>
+<p>To wrap things up, let's learn about **kwargs:</p>
+<p><code>**kwargs</code> is similar to <code>*args</code>, but catches <strong>named</strong> input parameters into a dictionary. Just as in <code>*args</code>, the important part is the operator <code>**</code> which denotes packing name-value pairs into a dictonary and assigning them to a variable named <code>kwargs</code>. The list of arguments can then be accessed through the dictionary's <code>.items()</code> method.</p>
+<p>An example:</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">print_all_arguments</span><span class="token punctuation">(</span><span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token keyword">in</span> kwargs<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Argument </span><span class="token interpolation"><span class="token punctuation">{</span>k<span class="token punctuation">}</span></span><span class="token string"> has the value </span><span class="token interpolation"><span class="token punctuation">{</span>v<span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+print_all_arguments<span class="token punctuation">(</span>a<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> b<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> c<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> Argument a has the value <span class="token number">1</span>
+<span class="token operator">>></span><span class="token operator">></span> Argument b has the value <span class="token number">2</span>
+<span class="token operator">>></span><span class="token operator">></span> Argument c has the value <span class="token number">3</span>
+</code></pre>
+<p>I leave it as an exercise to think how you can use <code>**kwargs</code> to build a decorator that can be applied to functions with varying number of named arguments.</p>

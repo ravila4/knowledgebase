@@ -1,0 +1,18 @@
+<h1 id="tricks">Tricks<a aria-hidden="true" class="anchor-heading icon-link" href="#tricks"></a></h1>
+<h2 id="1-adding-folder-to-path">1) Adding folder to path<a aria-hidden="true" class="anchor-heading icon-link" href="#1-adding-folder-to-path"></a></h2>
+<p>Sometimes a module that you want to import is found in a parent directory from where the Python executable is, this trick makes appends any path to the current namespace.</p>
+<pre class="language-python"><code class="language-python"><span class="token comment"># Add a folder to path. Useful to call a module that is in a parent directory:</span>
+<span class="token keyword">import</span> sys
+sys<span class="token punctuation">.</span>path<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string">"../"</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="2-find-the-location-of-a-module">2) Find the location of a module<a aria-hidden="true" class="anchor-heading icon-link" href="#2-find-the-location-of-a-module"></a></h2>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> mymodule
+mymodule<span class="token punctuation">.</span>__file__
+</code></pre>
+<h2 id="3-python-profiling-with-cprofile">3) Python profiling with cProfile<a aria-hidden="true" class="anchor-heading icon-link" href="#3-python-profiling-with-cprofile"></a></h2>
+<p>In a terminal, run:</p>
+<pre class="language-bash"><code class="language-bash">python -m cProfile -o tmp.prof <span class="token operator">&#x3C;</span>your_script.py<span class="token operator">></span>
+</code></pre>
+<p>Visualise output with snakeviz:</p>
+<pre class="language-bash"><code class="language-bash">snakeviz tmp.prof
+</code></pre>
